@@ -14,7 +14,7 @@ public class userPassword {
     private boolean checkPassWord;
     private boolean checkUserName;
     private boolean validationPassWord(String passWord) {
-        if(passWord.matches(".*[0-9]{1,}.*") && passWord.matches(".*[@#$]{1,}.*") && passWord.length() >=4 && passWord.length()<=20){
+        if(passWord.matches("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}") && passWord.matches(".*[@#$]{1,}.*") && passWord.length() >=4 && passWord.length()<=20){
             return checkPassWord = true;
         }
         else

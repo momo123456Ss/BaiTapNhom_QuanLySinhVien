@@ -36,7 +36,9 @@ public class quanLySinhVien {
                 String queQuan = rs.getString("QueQuan");
                 String maLop = rs.getString("MaLop");
                 SinhVien sv = new SinhVien(maSV,hoSV,tenSV,gioiTinh,ngaySinh,queQuan,maLop);
+                dsSinhVien.add(sv);
                 ds.add(sv);
+                
             }
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -46,6 +48,13 @@ public class quanLySinhVien {
         for(SinhVien sv : this.dsSinhVien){
             sv.hienThi();
 
+        }
+    }
+    public void timKiem(String a,List<SinhVien> ds){
+        for(SinhVien sv : this.dsSinhVien){
+            if(a.equals(Integer.toString(sv.getMaSV())) || a.equals(sv.getMaLop())){
+                sv.hienThi();
+            }
         }
     }
 }

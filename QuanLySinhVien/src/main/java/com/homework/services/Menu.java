@@ -4,7 +4,8 @@
  */
 package com.homework.services;
 
-import java.io.IOException;
+import com.homework.doituong.SinhVien;
+import com.homework.doituong.userPassword;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -20,17 +21,19 @@ public class Menu {
     public static Scanner sc = new Scanner(System.in);
     public static final SimpleDateFormat F = new SimpleDateFormat("yyyy-MM-dd");
     public static final DecimalFormat dF = new DecimalFormat("#.00");
+    private List<SinhVien> dsSinhVien = new ArrayList<>();
     public void Menu() throws  SQLException, ParseException {
         
-//       UserPassword userPassword = new UserPassword();
-//       System.out.print("Nhap UserName: ");
-//       String userName = sc.nextLine();
-//       System.out.print("Nhap PassWord: ");
-//       String passWord = sc.nextLine();
-//       if (userPassword.check(userName, passWord)) {
+       userPassword userPassword = new userPassword();
+       System.out.print("Nhap UserName: ");
+       String userName = sc.nextLine();
+       System.out.print("Nhap PassWord: ");
+       String passWord = sc.nextLine();
+       if (userPassword.check(userName, passWord)) {
            int choose;
            do {
                quanLySinhVien quanLySinhVien = new quanLySinhVien();
+               
                quanLyLop quanLyLop = new quanLyLop();
                quanLyMonHoc quanLyMonHoc = new quanLyMonHoc();
                quanLyHoc qlHoc = new quanLyHoc();
@@ -38,12 +41,15 @@ public class Menu {
                System.out.println("2.Danh sach Lop");
                System.out.println("3.Danh sach mon hoc");
                System.out.println("4.Danh sach Hoc ");
+               System.out.println("======================================");
+               System.out.println("5.Tim kiem sinh vien theo MaSV hoac MaLop ");
                System.out.print("Ban chon: ");
                choose = sc.nextInt();
                sc.nextLine();
                switch (choose) {
                    case 1:
-                       //quanLySinhVien.docDanhSachSinhVien();
+                       
+                       quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
                        quanLySinhVien.hienThiDanhSach();
                        break;
                    case 2:
@@ -58,11 +64,17 @@ public class Menu {
                        qlHoc.docDanhSachHoc();
                        qlHoc.hienThiDanhSachHoc();
                        break;
+                    case 5:
+                        quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
+                        System.out.print("Nhap MaSV || MaLop: "); String tmp = Menu.sc.nextLine();
+                        quanLySinhVien.timKiem(tmp, dsSinhVien);
+                        break;
 
                }
            } while (choose != 0);
        }
-//       else {
-//           System.out.print("Sai UserName hoac PassWord\n");
-//       }
-   }
+       else {
+           System.out.print("Sai UserName hoac PassWord\n");
+       }
+    }
+}
