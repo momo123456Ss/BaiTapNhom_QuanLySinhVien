@@ -4,6 +4,9 @@
  */
 package com.homework.jframeQLSinhVien;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author HOME
@@ -14,6 +17,7 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
      * Creates new form mQuanLySinhVien
      */
     public mQuanLySinhVien() {
+        
         initComponents();
     }
 
@@ -40,6 +44,7 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
         btInDSLop = new javax.swing.JButton();
         btInDSMonHoc = new javax.swing.JButton();
         btTimKiemDangKy = new javax.swing.JButton();
+        btBackLog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chuc nang");
@@ -47,6 +52,30 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(477, 260));
         setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+            public void windowDeiconified(java.awt.event.WindowEvent evt) {
+                formWindowDeiconified(evt);
+            }
+            public void windowIconified(java.awt.event.WindowEvent evt) {
+                formWindowIconified(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Insert");
@@ -85,12 +114,34 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
 
         btInDSLop.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btInDSLop.setText("Danh sach Lop");
+        btInDSLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInDSLopActionPerformed(evt);
+            }
+        });
 
         btInDSMonHoc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btInDSMonHoc.setText("Danh sach Mon hoc");
+        btInDSMonHoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInDSMonHocActionPerformed(evt);
+            }
+        });
 
         btTimKiemDangKy.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btTimKiemDangKy.setText("Tim kiem Dang Ky");
+        btTimKiemDangKy.setText("Danh sach Dang Ky");
+        btTimKiemDangKy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimKiemDangKyActionPerformed(evt);
+            }
+        });
+
+        btBackLog.setText("Back");
+        btBackLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackLogActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,11 +171,13 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btTimKiemDangKy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btInDSSinhVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btInDSLop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btInDSMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btBackLog)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btTimKiemDangKy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btInDSSinhVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btInDSLop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btInDSMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -157,7 +210,9 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
                         .addComponent(btThemMonHoc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btDangKyMon)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btBackLog)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,7 +238,66 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
         // TODO add your handling code here:
         danhSachSinhVien dsSV = new danhSachSinhVien();
         dsSV.show();
+        dsSV.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }//GEN-LAST:event_btInDSSinhVienActionPerformed
+
+    private void btInDSLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInDSLopActionPerformed
+        // TODO add your handling code here:
+        danhSachLop dsLop = new danhSachLop();
+        dsLop.show();
+        dsLop.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    }//GEN-LAST:event_btInDSLopActionPerformed
+
+    private void btInDSMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInDSMonHocActionPerformed
+        // TODO add your handling code here:
+        danhSachMonHoc dsMon = new danhSachMonHoc();
+        dsMon.show();
+        dsMon.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    }//GEN-LAST:event_btInDSMonHocActionPerformed
+
+    private void btTimKiemDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemDangKyActionPerformed
+        // TODO add your handling code here:
+        danhSachHoc dsHoc = new danhSachHoc();
+        dsHoc.show();
+        dsHoc.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    }//GEN-LAST:event_btTimKiemDangKyActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_formWindowDeactivated
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_formWindowLostFocus
+
+    private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_formWindowDeiconified
+
+    private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowIconified
+
+    private void btBackLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackLogActionPerformed
+        // TODO add your handling code here:
+        mLogin log = new mLogin();
+        log.show();
+        this.dispose();
+    }//GEN-LAST:event_btBackLogActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,6 +335,7 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBackLog;
     private javax.swing.JButton btDangKyMon;
     private javax.swing.JButton btInDSLop;
     private javax.swing.JButton btInDSMonHoc;

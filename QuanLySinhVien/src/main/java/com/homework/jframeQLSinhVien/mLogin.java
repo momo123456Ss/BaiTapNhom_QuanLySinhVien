@@ -76,6 +76,7 @@ public class mLogin extends javax.swing.JFrame {
         label5.setText("PassWord:");
 
         fUser.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        fUser.setForeground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,17 +135,25 @@ public class mLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void showJ(){
+        this.show();
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         userPassword up = new userPassword();
+        
+        mQuanLySinhVien qlSV = new mQuanLySinhVien();
         if(up.check(fUser.getText(), fPass.getText())){
+            this.dispose();
             JOptionPane.showMessageDialog(null,"Login");
-           
-        }
-        else{
+            qlSV.show();
+            qlSV.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             
         }
+        else{
+            JOptionPane.showMessageDialog(null,"Fail");
+        }
+    
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

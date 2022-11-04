@@ -7,6 +7,7 @@ package com.homework.jframeQLSinhVien;
 
 import com.homework.services.quanLySinhVien;
 import com.homework.doituong.SinhVien;
+import static com.homework.jframeQLSinhVien.danhSachHoc.isNumeric;
 import com.homework.services.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import javax.swing.JFrame;
 import javax.swing.Timer;
   
 
@@ -51,11 +53,16 @@ public class danhSachSinhVien extends javax.swing.JFrame {
         tbDanhSachSinhVien = new javax.swing.JTable();
         label1 = new java.awt.Label();
         txtFTimKiem = new java.awt.TextField();
+        btBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Danh sach sinh vien");
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -94,29 +101,41 @@ public class danhSachSinhVien extends javax.swing.JFrame {
             }
         });
 
+        btBack.setText("Close");
+        btBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btBack)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -169,12 +188,29 @@ public class danhSachSinhVien extends javax.swing.JFrame {
                 tbmSinhVien.removeRow(i);
             }
             for(SinhVien sv : this.dsSinhVien){
-                if(sv.getMaLop().contains(txtFTimKiem.getText()) || Integer.toString(sv.getMaSV()).contains(txtFTimKiem.getText())){
-                    tbmSinhVien.addRow(new Object[] {sv.getMaSV(),sv.getHoSV(),sv.getTenSV(),sv.getGioiTinh(),sv.getQueQuan(),sv.getMaLop(),Menu.F.format(sv.getNgaySinh())});
+                if(isNumeric(txtFTimKiem.getText().toString())){
+                    if(Integer.toString(sv.getMaSV()).contains(txtFTimKiem.getText())){
+                        tbmSinhVien.addRow(new Object[] {sv.getMaSV(),sv.getHoSV(),sv.getTenSV(),sv.getGioiTinh(),sv.getQueQuan(),sv.getMaLop(),Menu.F.format(sv.getNgaySinh())});
+                    }
+                }
+                else{
+                    if(sv.getMaLop().toLowerCase().contains(txtFTimKiem.getText().toLowerCase())){
+                        tbmSinhVien.addRow(new Object[] {sv.getMaSV(),sv.getHoSV(),sv.getTenSV(),sv.getGioiTinh(),sv.getQueQuan(),sv.getMaLop(),Menu.F.format(sv.getNgaySinh())});
+                    }
                 }
             }
         }
     }//GEN-LAST:event_txtFTimKiemTextValueChanged
+
+    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btBackActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_formWindowClosed
 
     
 
@@ -218,6 +254,7 @@ public class danhSachSinhVien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBack;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private javax.swing.JTable tbDanhSachSinhVien;
