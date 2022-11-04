@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.homework.doituong;
-import com.baitapnhom.services.Menu;
+import com.homework.services.Menu;
 import java.text.ParseException;
 import java.util.Date;
 /**
@@ -25,7 +25,7 @@ public class Hoc {
     }
     
     public void hienThi(){
-        System.out.printf("Ma mon hoc: %s - Ma sinh vien: %s - Ngay dang ky: %s - Diem: %.2f - Submit: %s\n",this.maMH,this.maSV,Menu.F.format(this.ngayDangKy),this.diem,this.submit);
+        System.out.printf("Ma mon hoc: %s - Ma sinh vien: %s - Ngay dang ky: %s - Diem: %.2f - Submit: %s\n",this.maMH,this.maSV,Menu.F.format(this.ngayDangKy), this.diem,this.submit);
     }
     /**
      * @return the maMH
@@ -81,5 +81,19 @@ public class Hoc {
      */
     public void setSubmit(boolean submit) {
         this.submit = submit;
+    }
+
+    /**
+     * @return the diem
+     */
+    public double getDiem() {
+        return diem;
+    }
+
+    /**
+     * @param diem the diem to set
+     */
+    public void setDiem(double diem) {
+        this.diem = diem;
     }
 }

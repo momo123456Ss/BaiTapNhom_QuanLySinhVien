@@ -4,6 +4,10 @@
  */
 package com.homework.services;
 
+
+import com.homework.doituong.Hoc;
+import com.homework.doituong.Lop;
+import com.homework.doituong.MonHoc;
 import com.homework.doituong.SinhVien;
 import com.homework.doituong.userPassword;
 import java.sql.SQLException;
@@ -22,6 +26,9 @@ public class Menu {
     public static final SimpleDateFormat F = new SimpleDateFormat("yyyy-MM-dd");
     public static final DecimalFormat dF = new DecimalFormat("#.00");
     private List<SinhVien> dsSinhVien = new ArrayList<>();
+    private List<MonHoc> dsMonHoc = new ArrayList<>();
+    private List<Lop> dsLop = new ArrayList<>();
+    private List<Hoc> dsHoc = new ArrayList<>();
     public void Menu() throws  SQLException, ParseException {
         
        userPassword userPassword = new userPassword();
@@ -43,6 +50,9 @@ public class Menu {
                System.out.println("4.Danh sach Hoc ");
                System.out.println("======================================");
                System.out.println("5.Tim kiem sinh vien theo MaSV hoac MaLop ");
+               System.out.println("6.Tim kiem Lop theo maLop hoac tenLop");
+               System.out.println("7.Tim kiem Mon hoc theo MaMH hoac TenMH ");
+               System.out.println("8.Tim kiem Hoc theo MaMH hoac MaSV ");
                System.out.print("Ban chon: ");
                choose = sc.nextInt();
                sc.nextLine();
@@ -50,24 +60,39 @@ public class Menu {
                    case 1:
                        
                        quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
-                       quanLySinhVien.hienThiDanhSach();
+                       quanLySinhVien.hienThiDanhSach(dsSinhVien);
                        break;
                    case 2:
-                       quanLyLop.docDanhSachLop();
-                       quanLyLop.hienThiDanhSachLop();
+                       quanLyLop.docDanhSachLop(dsLop);
+                       quanLyLop.hienThiDanhSachLop(dsLop);
                        break;
                    case 3:
-                       quanLyMonHoc.docDanhSachMonHoc();
-                       quanLyMonHoc.hienThiDanhSachMonHoc();
+                       quanLyMonHoc.docDanhSachMonHoc(dsMonHoc);
+                       quanLyMonHoc.hienThiDanhSachMonHoc(dsMonHoc);
                        break;
                    case 4:
-                       qlHoc.docDanhSachHoc();
-                       qlHoc.hienThiDanhSachHoc();
+                       qlHoc.docDanhSachHoc(dsHoc);
+                       qlHoc.hienThiDanhSachHoc(dsHoc);
                        break;
                     case 5:
                         quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
                         System.out.print("Nhap MaSV || MaLop: "); String tmp = Menu.sc.nextLine();
                         quanLySinhVien.timKiem(tmp, dsSinhVien);
+                        break;
+                    case 6:
+                        quanLyLop.docDanhSachLop(dsLop);
+                        System.out.print("Nhap MaLop || TenLop: "); String tmpLop = Menu.sc.nextLine();
+                        quanLyLop.timKiem(tmpLop, dsLop);
+                        break;
+                    case 7:
+                        quanLyMonHoc.docDanhSachMonHoc(dsMonHoc);
+                        System.out.print("Nhap MaMH || TenMH: "); String tmpMH = Menu.sc.nextLine();
+                        quanLyMonHoc.timKiem(tmpMH, dsMonHoc);
+                        break;
+                    case 8:
+                        qlHoc.docDanhSachHoc(dsHoc);
+                        System.out.print("Nhap MaMH || maSV: "); String tmpHoc = Menu.sc.nextLine();
+                        qlHoc.timKiem(tmpHoc, dsHoc);
                         break;
 
                }

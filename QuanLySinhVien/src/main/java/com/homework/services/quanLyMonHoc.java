@@ -4,7 +4,7 @@
  */
 package com.homework.services;
 
-import com.baitapnhom.doituong.MonHoc;
+import com.homework.doituong.MonHoc;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +17,8 @@ import java.util.List;
  * @author HOME
  */
 public class quanLyMonHoc {
-     private List<MonHoc> qlMonHoc = new ArrayList<>();
-    public void docDanhSachMonHoc() throws SQLException{
+    public void docDanhSachMonHoc(List<MonHoc> ds) throws SQLException{
+        ds.clear();
         try (Connection conn = JdbcUtils.getConn()) {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM monhoc");
@@ -27,13 +27,20 @@ public class quanLyMonHoc {
                 String tenMH = rs.getString("TenMH");
                 int soTinChi = rs.getInt("SoTinChi");
                 MonHoc mh = new MonHoc(maMH,tenMH,soTinChi);
-                this.qlMonHoc.add(mh);
+                ds.add(mh);
             }
         }
     }
-    public void hienThiDanhSachMonHoc(){
-        for(MonHoc mh : this.qlMonHoc){
+    public void hienThiDanhSachMonHoc(List<MonHoc> ds){
+        for(MonHoc mh : ds){
             mh.hienThi();
+        }
+    }
+    public void timKiem(String a,List<MonHoc> ds){
+        for(MonHoc mh : ds){
+            if(mh.getMaMH().toLowerCase().contains(a.toLowerCase()) || mh.getTenMH().toLowerCase().contains(a.toLowerCase())){
+                mh.hienThi();
+            }
         }
     }
 }

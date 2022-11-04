@@ -169,7 +169,7 @@ public class danhSachSinhVien extends javax.swing.JFrame {
                 tbmSinhVien.removeRow(i);
             }
             for(SinhVien sv : this.dsSinhVien){
-                if(Integer.parseInt(txtFTimKiem.getText())== sv.getMaSV() || txtFTimKiem.getText().equals(sv.getMaLop())){
+                if(sv.getMaLop().contains(txtFTimKiem.getText()) || Integer.toString(sv.getMaSV()).contains(txtFTimKiem.getText())){
                     tbmSinhVien.addRow(new Object[] {sv.getMaSV(),sv.getHoSV(),sv.getTenSV(),sv.getGioiTinh(),sv.getQueQuan(),sv.getMaLop(),Menu.F.format(sv.getNgaySinh())});
                 }
             }

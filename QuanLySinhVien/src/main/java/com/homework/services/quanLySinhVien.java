@@ -18,12 +18,8 @@ import java.util.List;
  * @author HOME
  */
 public class quanLySinhVien {
-     private List<SinhVien> dsSinhVien = new ArrayList<>();
- 
-    
- 
-    
     public  void docDanhSachSinhVien(List<SinhVien> ds) throws SQLException, ParseException{
+        ds.clear();
         try (Connection conn = com.homework.services.JdbcUtils.getConn()) {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM sinhvien");
@@ -36,7 +32,6 @@ public class quanLySinhVien {
                 String queQuan = rs.getString("QueQuan");
                 String maLop = rs.getString("MaLop");
                 SinhVien sv = new SinhVien(maSV,hoSV,tenSV,gioiTinh,ngaySinh,queQuan,maLop);
-                dsSinhVien.add(sv);
                 ds.add(sv);
                 
             }
@@ -44,14 +39,14 @@ public class quanLySinhVien {
             throw new RuntimeException(e);
         }
     }
-    public void hienThiDanhSach(){
-        for(SinhVien sv : this.dsSinhVien){
+    public void hienThiDanhSach(List<SinhVien> ds){
+        for(SinhVien sv : ds){
             sv.hienThi();
 
         }
     }
     public void timKiem(String a,List<SinhVien> ds){
-        for(SinhVien sv : this.dsSinhVien){
+        for(SinhVien sv : ds){
             if(a.equals(Integer.toString(sv.getMaSV())) || a.equals(sv.getMaLop())){
                 sv.hienThi();
             }

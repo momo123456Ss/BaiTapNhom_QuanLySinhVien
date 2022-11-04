@@ -4,8 +4,10 @@
  */
 package com.homework.services;
 
-import com.baitapnhom.doituong.Hoc;
-import com.baitapnhom.doituong.SinhVien;
+import com.homework.doituong.Hoc;
+
+import com.homework.doituong.SinhVien;
+import static com.homework.jframeQLSinhVien.danhSachHoc.isNumeric;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +21,8 @@ import java.util.List;
  * @author HOME
  */
 public class quanLyHoc {
-    private List<Hoc> qlHoc = new ArrayList<>();
-    public void docDanhSachHoc() throws SQLException, ParseException{
+    public void docDanhSachHoc(List<Hoc> ds) throws SQLException, ParseException{
+        ds.clear();
         try (Connection conn = JdbcUtils.getConn()) {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM hoc");
@@ -31,13 +33,28 @@ public class quanLyHoc {
                 double diem = rs.getDouble("Diem");
                 boolean submit = rs.getBoolean("submit");
                 Hoc hoc = new Hoc(maMH,maSV,ngayDangKy,diem,submit);
-                this.qlHoc.add(hoc);
+                ds.add(hoc);
             }
         }
     }
-    public void hienThiDanhSachHoc(){
-        for(Hoc hc: this.qlHoc){
+    public void hienThiDanhSachHoc(List<Hoc> ds){
+        for(Hoc hc: ds){
             hc.hienThi();
         }
+    }
+    public void timKiem(String a,List<Hoc> ds){
+        for(Hoc hoc : ds){
+                  if(isNumeric(a)){
+                    if(Integer.toString(hoc.getMaSV()).equals(a)){
+                      hoc.hienThi();
+                    }
+                  }
+                  else{
+                      if(hoc.getMaMH().toLowerCase().contains(a)){
+                          hoc.hienThi();
+                      }
+                  }
+                  
+            }
     }
 }

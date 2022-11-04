@@ -77,6 +77,11 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
 
         btInDSSinhVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btInDSSinhVien.setText("Danh sach Sinh Vien");
+        btInDSSinhVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInDSSinhVienActionPerformed(evt);
+            }
+        });
 
         btInDSLop.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btInDSLop.setText("Danh sach Lop");
@@ -173,6 +178,12 @@ public class mQuanLySinhVien extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btInDSSinhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInDSSinhVienActionPerformed
+        // TODO add your handling code here:
+        danhSachSinhVien dsSV = new danhSachSinhVien();
+        dsSV.show();
+    }//GEN-LAST:event_btInDSSinhVienActionPerformed
 
     /**
      * @param args the command line arguments
