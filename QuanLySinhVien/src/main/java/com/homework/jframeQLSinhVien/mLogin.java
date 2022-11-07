@@ -6,6 +6,7 @@ package com.homework.jframeQLSinhVien;
 
 import com.homework.doituong.userPassword;
 import com.homework.quanlysinhvien.App;
+import java.awt.event.KeyEvent;
 import javafx.application.Application;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -42,11 +43,16 @@ public class mLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login from");
+        setBackground(new java.awt.Color(102, 51, 255));
         setBounds(new java.awt.Rectangle(600, 250, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(341, 270));
         setMinimumSize(new java.awt.Dimension(341, 270));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel1.setForeground(new java.awt.Color(255, 255, 204));
         jPanel1.setMaximumSize(new java.awt.Dimension(386, 218));
@@ -60,6 +66,14 @@ public class mLogin extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jButton1KeyTyped(evt);
             }
         });
 
@@ -122,7 +136,7 @@ public class mLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -156,6 +170,63 @@ public class mLogin extends javax.swing.JFrame {
     
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_F5){
+              userPassword up = new userPassword();
+        
+        mQuanLySinhVien qlSV = new mQuanLySinhVien();
+        if(up.check(fUser.getText(), fPass.getText())){
+            this.dispose();
+            JOptionPane.showMessageDialog(null,"Login");
+            qlSV.show();
+            qlSV.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Fail");
+        }
+         }
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void jButton1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyTyped
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+              userPassword up = new userPassword();
+        
+        mQuanLySinhVien qlSV = new mQuanLySinhVien();
+        if(up.check(fUser.getText(), fPass.getText())){
+            this.dispose();
+            JOptionPane.showMessageDialog(null,"Login");
+            qlSV.show();
+            qlSV.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Fail");
+        }
+         }
+    }//GEN-LAST:event_jButton1KeyTyped
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+              userPassword up = new userPassword();
+        
+        mQuanLySinhVien qlSV = new mQuanLySinhVien();
+        if(up.check(fUser.getText(), fPass.getText())){
+            this.dispose();
+            JOptionPane.showMessageDialog(null,"Login");
+            qlSV.show();
+            qlSV.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Fail");
+        }
+         }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments

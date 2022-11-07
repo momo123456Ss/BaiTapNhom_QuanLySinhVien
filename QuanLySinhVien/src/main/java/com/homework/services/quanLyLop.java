@@ -41,14 +41,16 @@ public class quanLyLop {
     }
     public void timKiem(String a,List<Lop> ds){
         for(Lop lop : ds){
-                    if(lop.getMaLop().toLowerCase().contains(a.toLowerCase()) || lop.getTenLop().toLowerCase().contains(a.toLowerCase())){
-                        lop.hienThi();
-                    }
-                    else if(a.toLowerCase().contains("NULL".toLowerCase())){
-                        if(Objects.isNull(lop.getgVCN())){
-                            lop.hienThi();
-                        }
-                    }
+            if(Objects.isNull(lop.getgVCN()) == false){
+                if(lop.getTenLop().toLowerCase().contains(a.toLowerCase())||lop.getMaLop().toLowerCase().contains(a.toLowerCase()) || lop.getTenLop().toLowerCase().contains(a.toLowerCase())){
+                    lop.hienThi();
+                }
             }
+            else if(a.toLowerCase().contains("NULL".toLowerCase())){
+                if(Objects.isNull(lop.getgVCN())){
+                      lop.hienThi();
+                }
+            }
+        }
     }
 }

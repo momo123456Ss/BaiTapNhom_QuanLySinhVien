@@ -31,7 +31,7 @@ public class quanLyHoc {
                 int maSV = rs.getInt("MaSV");
                 String ngayDangKy = rs.getString("NgayDangKy");
                 double diem = rs.getDouble("Diem");
-                boolean submit = rs.getBoolean("submit");
+                int submit = rs.getInt("submit");
                 Hoc hoc = new Hoc(maMH,maSV,ngayDangKy,diem,submit);
                 ds.add(hoc);
             }

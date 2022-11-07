@@ -15,8 +15,8 @@ public class Hoc {
     private int maSV;
     private Date ngayDangKy;
     private double diem;
-    private boolean submit;
-    public Hoc(String maMH,int maSV,String ngayDangKy,double diem,boolean submit) throws ParseException{
+    private int submit;
+    public Hoc(String maMH,int maSV,String ngayDangKy,double diem,int submit) throws ParseException{
         this.maMH = maMH;
         this.maSV = maSV;
         this.ngayDangKy = Menu.F.parse(ngayDangKy);
@@ -72,14 +72,14 @@ public class Hoc {
     /**
      * @return the submit
      */
-    public boolean isSubmit() {
+    public int isSubmit() {
         return submit;
     }
 
     /**
      * @param submit the submit to set
      */
-    public void setSubmit(boolean submit) {
+    public void setSubmit(int submit) {
         this.submit = submit;
     }
 

@@ -39,10 +39,9 @@ public class danhSachLop extends javax.swing.JFrame {
         tbLop = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtFLop = new java.awt.TextField();
-        btClose = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(533, 507));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -71,13 +70,6 @@ public class danhSachLop extends javax.swing.JFrame {
             }
         });
 
-        btClose.setText("Close");
-        btClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCloseActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,29 +77,24 @@ public class danhSachLop extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFLop, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btClose)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btClose)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txtFLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,22 +134,19 @@ public class danhSachLop extends javax.swing.JFrame {
                 tbmLop.removeRow(i);
             }
             for(Lop lop : this.dsLop){
-                    if(lop.getMaLop().toLowerCase().contains(txtFLop.getText().toLowerCase()) || lop.getTenLop().toLowerCase().contains(txtFLop.getText().toLowerCase())){
+                if(Objects.isNull(lop.getgVCN()) == false){
+                    if(lop.getgVCN().toLowerCase().contains(txtFLop.getText().toLowerCase())||lop.getMaLop().toLowerCase().contains(txtFLop.getText().toLowerCase()) || lop.getTenLop().toLowerCase().contains(txtFLop.getText().toLowerCase())){
                         tbmLop.addRow(new Object[] {lop.getMaLop(),lop.getTenLop(),lop.getgVCN()});  
                     }
-                    else if(txtFLop.getText().toLowerCase().contains("NULL".toLowerCase())){
-                        if(Objects.isNull(lop.getgVCN())){
-                            tbmLop.addRow(new Object[] {lop.getMaLop(),lop.getTenLop(),lop.getgVCN()});  
-                        }
+                }
+                else if(txtFLop.getText().toLowerCase().contains("NULL".toLowerCase())){
+                    if(Objects.isNull(lop.getgVCN())){
+                        tbmLop.addRow(new Object[] {lop.getMaLop(),lop.getTenLop(),lop.getgVCN()});  
                     }
+                }
             }
         }
     }//GEN-LAST:event_txtFLopTextValueChanged
-
-    private void btCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCloseActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,7 +184,6 @@ public class danhSachLop extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btClose;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbLop;

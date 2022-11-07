@@ -42,7 +42,7 @@ CREATE TABLE `hoc` (
 
 LOCK TABLES `hoc` WRITE;
 /*!40000 ALTER TABLE `hoc` DISABLE KEYS */;
-INSERT INTO `hoc` VALUES ('ITEC4415',4,'1999-12-03',8.00,1),('ITEC3402',3,'2020-07-05',5.00,1),('ITEC3406',2,'2020-07-05',7.33,0),('ITEC4415',1,'2020-07-05',0.00,0),('POLI1207',2,'2020-07-05',0.00,0),('ITEC3406',6,'2022-11-07',7.00,1);
+INSERT INTO `hoc` VALUES ('ITEC3402',3,'2020-07-05',NULL,0),('ITEC3406',2,'2020-07-05',7.33,0),('ITEC4415',1,'2020-07-05',NULL,0),('POLI1207',2,'2020-07-05',NULL,0);
 /*!40000 ALTER TABLE `hoc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `lop` (
 
 LOCK TABLES `lop` WRITE;
 /*!40000 ALTER TABLE `lop` DISABLE KEYS */;
-INSERT INTO `lop` VALUES ('CS2001','Khoa hoc may tinh','Nguyen Van A'),('CS2002','Khoa hoc may tinh','null'),('IM2001','He thong thong tin','Nguyen Van C'),('IM2002','He thong thong tin','null'),('IT2001','Cong nghe thong tin','Nguyen Van B'),('IT2002','Cong nghe thong tin','Huynh Van A'),('MK2001','Truyen thong','null'),('null','null','null');
+INSERT INTO `lop` VALUES ('CS2001','Khoa hoc may tinh','Nguyen Van A'),('CS2002','Khoa hoc may tinh',NULL),('IM2001','He thong thong tin','Nguyen Van C'),('IT2001','Cong nghe thong tin','Nguyen Van B');
 /*!40000 ALTER TABLE `lop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `monhoc` (
 
 LOCK TABLES `monhoc` WRITE;
 /*!40000 ALTER TABLE `monhoc` DISABLE KEYS */;
-INSERT INTO `monhoc` VALUES ('ITEC0702','He thong tin quan ly',5),('ITEC1234','mang may tinh',4),('ITEC3402','Co so du lieu nang cao',3),('ITEC3406','Lap trinh co so du lieu',3),('ITEC4415','Kiem thu phan men',3),('POLI1207','Lich su dang',3),('POLI1234','Ho Chi Minh 2022',5);
+INSERT INTO `monhoc` VALUES ('ITEC3402','Co so du lieu nang cao',3),('ITEC3406','Lap trinh co so du lieu',3),('ITEC4415','Kiem thu phan men',3),('POLI1207','Lich su dang',3);
 /*!40000 ALTER TABLE `monhoc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `sinhvien` (
   PRIMARY KEY (`MaSV`),
   KEY `fk_lop_sinhvien_idx` (`MaLop`),
   CONSTRAINT `fk_lop_sinhvien` FOREIGN KEY (`MaLop`) REFERENCES `lop` (`MaLop`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `sinhvien` (
 
 LOCK TABLES `sinhvien` WRITE;
 /*!40000 ALTER TABLE `sinhvien` DISABLE KEYS */;
-INSERT INTO `sinhvien` VALUES (1,'Huynh Hiep','Thien','Nam','2002-05-07','Tp.HCM','CS2001'),(2,'Tran Quang','Huy','Nam','1999-01-01','Tp.HCM','IM2001'),(3,'Le Vu','Ho','Nam','2001-01-01','Tp.HCM','IT2001'),(4,'Huynh','Tien','Nam','2003-05-02','Tp.HCM','CS2002'),(5,'Tien','Huynh','null','1990-01-01','null','null'),(6,'Khang','Dang','Nu','1990-01-01','Ha noi','MK2001'),(7,'Huynh Tan','Phat','null','1990-01-01','null','null'),(8,'Huynh','Duy','null','1990-01-01','null','null'),(9,'Danh','Cao','null','1990-01-01','null','null');
+INSERT INTO `sinhvien` VALUES (1,'Huynh Hiep','Thien','Nam','2002-05-07','Tp.HCM','CS2001'),(2,'Tran Quang','Huy','Nam','1999-01-01','Tp.HCM','IM2001'),(3,'Le Vu','Ho','Nam','2001-01-01','Tp.HCM','IT2001');
 /*!40000 ALTER TABLE `sinhvien` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -136,4 +136,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-07 16:30:12
+-- Dump completed on 2022-11-04 13:53:28
