@@ -53,6 +53,11 @@ public class Menu {
                System.out.println("6.Tim kiem Lop theo maLop hoac tenLop");
                System.out.println("7.Tim kiem Mon hoc theo MaMH hoac TenMH ");
                System.out.println("8.Tim kiem Hoc theo MaMH hoac MaSV ");
+               System.out.println("======================================");
+               System.out.println("9.Them 1 sinh vien");
+               System.out.println("10.Them 1 lop");
+               System.out.println("11.Them 1 mon hoc");
+               System.out.println("12.Them 1 SinhVien_MonHoc");
                System.out.print("Ban chon: ");
                choose = sc.nextInt();
                sc.nextLine();
@@ -93,6 +98,39 @@ public class Menu {
                         qlHoc.docDanhSachHoc(dsHoc);
                         System.out.print("Nhap MaMH || maSV: "); String tmpHoc = Menu.sc.nextLine();
                         qlHoc.timKiem(tmpHoc, dsHoc);
+                        break;
+                    case 9:
+                        quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
+                        System.out.print("Ho: "); String ho = Menu.sc.nextLine();
+                        System.out.print("Ten: "); String ten = Menu.sc.nextLine();
+                        System.out.print("gioiTinh: "); String gioiTinh = Menu.sc.nextLine();
+                        System.out.print("ngaySinh (yyyy-MM-dd): "); String ngaySinh = Menu.sc.nextLine();
+                        System.out.print("queQuan: "); String queQuan = Menu.sc.nextLine();
+                        System.out.print("maLop: "); String maLop = Menu.sc.nextLine();
+                        quanLySinhVien.themSinhVien(ho,ten,gioiTinh,ngaySinh,queQuan,maLop);
+                        break;
+                    case 10:
+                        quanLyLop.docDanhSachLop(dsLop);
+                        System.out.print("maLop: "); String maLopCs10 = Menu.sc.nextLine();
+                        System.out.print("TenLop: "); String tenLop = Menu.sc.nextLine();
+                        System.out.print("GVCN: "); String GVCN = Menu.sc.nextLine();
+                        quanLyLop.themLop(maLopCs10, tenLop, GVCN, dsLop);
+                        break;
+                    case 11:
+                        quanLyMonHoc.docDanhSachMonHoc(dsMonHoc);
+                        System.out.print("maMH: "); String maMH = Menu.sc.nextLine();
+                        System.out.print("tenMH: "); String tenMH = Menu.sc.nextLine();
+                        System.out.print("soTinChi: "); String soTinChi = Menu.sc.nextLine();
+                        quanLyMonHoc.themMonHoc(maMH, tenMH, soTinChi, dsMonHoc);
+                        break;
+                    case 12:
+                        quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
+                        quanLyMonHoc.docDanhSachMonHoc(dsMonHoc);
+                        System.out.print("maMH: "); String maMHCs12 = Menu.sc.nextLine();
+                        System.out.print("maSV: ");  String maSVCs12 = Menu.sc.nextLine();
+
+                        qlHoc.themSV_MH(maMHCs12, maSVCs12, dsSinhVien, dsMonHoc);
+                        
                         break;
 
                }

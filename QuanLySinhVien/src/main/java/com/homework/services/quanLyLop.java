@@ -14,12 +14,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author HOME
  */
 public class quanLyLop {
+    
     public void docDanhSachLop(List<Lop> ds) throws SQLException{
         ds.clear();
         try (Connection conn = JdbcUtils.getConn()) {
@@ -52,5 +54,32 @@ public class quanLyLop {
                 }
             }
         }
+    }
+    
+    public void themLop(String maLop,String tenLop,String GVCN,List<Lop> ds) throws SQLException{
+        if(maLop.isEmpty() || tenLop.isEmpty()){
+            System.out.println("maLop va TenLop khong dc de trong!");
+            return;
+        }
+        if(GVCN.isEmpty()){
+            GVCN = "null";
+        }
+        
+        for(Lop lop : ds){
+            if(lop.getMaLop().equals(maLop)){
+                System.out.println("maLop ton tai!");
+                return;
+            }
+        }
+        
+         Statement stmt = null;
+            try (Connection conn = com.homework.services.JdbcUtils.getConn()){                
+                    String sql = "INSERT INTO lop (MaLop,TenLop,GVCN) VALUES ('"+ maLop + "','"+ tenLop + "','"+ GVCN + "')";
+                    stmt = (Statement) conn.createStatement();
+                    stmt.executeUpdate(sql);
+                    System.out.println(sql);
+                
+
+            } 
     }
 }

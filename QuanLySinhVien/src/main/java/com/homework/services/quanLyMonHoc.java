@@ -5,12 +5,14 @@
 package com.homework.services;
 
 import com.homework.doituong.MonHoc;
+import static com.homework.jframeQLSinhVien.danhSachHoc.isNumeric;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,5 +44,35 @@ public class quanLyMonHoc {
                 mh.hienThi();
             }
         }
+    }
+    
+    public void themMonHoc(String maMH,String tenMH,String soTinChi,List<MonHoc> ds) throws SQLException{
+        if(maMH.isEmpty() || tenMH.isEmpty() || soTinChi.isEmpty()){
+            System.out.println("MaMh , TenMH, SoTinChi khong dc de trong!");
+            return;
+        }
+        if(!isNumeric(soTinChi)){
+            System.out.println("So tin chi phai la chu so!");
+            return;
+        }
+        if(Integer.parseInt(soTinChi) > 10 || Integer.parseInt(soTinChi) < 0) {
+            System.out.println("So tin chi 0 < So tin chi < 10!");
+            return;
+        }
+        
+        for(MonHoc mh : ds){
+            if(maMH.toLowerCase().equals(mh.getMaMH().toLowerCase())){
+                System.out.println("Trung ma Mon Hoc!");
+                return;
+            }
+        }
+        Statement stmt = null;
+        try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                stmt = (Statement) conn.createStatement();
+                String query = "INSERT INTO monhoc " + "VALUES ('" + maMH + "','" + tenMH + "'," + Integer.parseInt(soTinChi) + ")";
+                stmt.executeUpdate(query);
+                System.out.println(query);
+        }
+       
     }
 }
