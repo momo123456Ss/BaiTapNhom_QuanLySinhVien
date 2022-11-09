@@ -151,6 +151,15 @@ public class Menu {
                         System.out.print("maMH: ");  String maMHCs15 = Menu.sc.nextLine();
                         quanLyMonHoc.suaMonHoc(maMHCs15, dsMonHoc);
                         break;
+                    case 16:
+                        quanLyMonHoc.docDanhSachMonHoc(dsMonHoc);
+                        quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
+                        qlHoc.docDanhSachHoc(dsHoc);
+                        System.out.print("maMH: "); String maMHCs16 = Menu.sc.nextLine();
+                        System.out.print("maSV: ");  String maSVCs16 = Menu.sc.nextLine();
+                        qlHoc.nhapDiem(maMHCs16, maSVCs16, dsMonHoc, dsSinhVien, dsHoc);
+                        
+                        break;
 
                }
            } while (choose != 0);

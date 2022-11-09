@@ -114,4 +114,101 @@ public class quanLyHoc {
         }
         
     }
+    
+    public void nhapDiem(String maMH,String maSV,List<MonHoc> dsMH,List<SinhVien> dsSV,List<Hoc> dsHoc){
+        boolean checkMH = false;
+        boolean checkSV = false;
+        for(MonHoc mh : dsMH){
+            if(maMH.toLowerCase().equals(mh.getMaMH().toLowerCase())){
+                checkMH = true;
+            }
+        }
+        for(SinhVien sv : dsSV){
+            if(maSV.equals(Integer.toString(sv.getMaSV()))){
+                checkSV = true;
+            }
+        }
+        
+        if(checkMH == false){
+            System.out.println("MaMonHoc ko ton tai!");
+            return;
+        }
+        if(checkSV == false){
+            System.out.println("MaSV ko ton tai!");
+            return;
+        }
+        
+        boolean checkHc = false;
+        for(Hoc hc : dsHoc){
+            if(maMH.toLowerCase().equals(hc.getMaMH().toLowerCase()) && maSV.equals(Integer.toString(hc.getMaSV()))){
+                checkHc = true;
+            }
+        }
+        if(checkHc == false){
+            System.out.println("Sinh vien chua dang ky mon!");
+            return;
+        }
+        
+        int choose;
+        do{
+            System.out.println("1.Diem");
+            System.out.println("2.Submit");
+            System.out.print("Ban chon: "); choose = Menu.sc.nextInt();
+            Menu.sc.nextLine();
+            
+            switch(choose){
+                case 1:
+                    System.out.print("Nhap diem: "); String diem = Menu.sc.nextLine();
+                    if(!isNumeric(diem)){
+                        System.out.print("Diem phai la so");
+                        return;
+                    }
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update hoc set Diem ='"
+                        + Double.parseDouble(diem)
+                        + "' where MaSV ='" + maSV +"' and MaMH ='"
+                        + maMH + "'";
+                        Statement stmt = null;
+                        stmt = (Statement) conn.createStatement();
+                        stmt.execute(query);
+                        System.out.print(query);
+                    } catch (SQLException ex) {
+                    Logger.getLogger(quanLyHoc.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 2:
+                    for(Hoc hc : dsHoc){
+                        if(maMH.toLowerCase().equals(hc.getMaMH().toLowerCase()) && maSV.equals(Integer.toString(hc.getMaSV()))){
+                            if(hc.isSubmit() == 1){
+                                System.out.println("Da submit roi!");
+                                return;
+                            }
+                        }
+                    }
+                    System.out.print("Y/N: "); String yesno = Menu.sc.nextLine(); 
+                    if(yesno.toLowerCase().equals("N".toLowerCase())){
+                        System.out.println("HUY submit diem");
+                    }
+                    else if(yesno.toLowerCase().equals("Y".toLowerCase())){
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update hoc set submit ='"
+                        + 1
+                        + "' where MaSV ='" + maSV +"' and MaMH ='"
+                        + maMH + "'";
+                        Statement stmt = null;
+                        stmt = (Statement) conn.createStatement();
+                        stmt.execute(query);
+                        System.out.println(query);
+                    } catch (SQLException ex) {
+                    Logger.getLogger(quanLyHoc.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }
+                    else{
+                        System.out.println("Nhap Y hoac N");
+                    }
+                    break;
+
+            }
+        }while(choose !=0);
+    }
 }
