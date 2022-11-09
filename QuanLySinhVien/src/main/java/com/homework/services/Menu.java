@@ -58,6 +58,11 @@ public class Menu {
                System.out.println("10.Them 1 lop");
                System.out.println("11.Them 1 mon hoc");
                System.out.println("12.Them 1 SinhVien_MonHoc");
+               System.out.println("======================================");
+               System.out.println("13.Sua 1 sinh vien");
+               System.out.println("14.Sua 1 lop");
+               System.out.println("15.Sua 1 mon hoc");
+               System.out.println("16.Sua 1 SinhVien_MonHoc");
                System.out.print("Ban chon: ");
                choose = sc.nextInt();
                sc.nextLine();
@@ -128,9 +133,23 @@ public class Menu {
                         quanLyMonHoc.docDanhSachMonHoc(dsMonHoc);
                         System.out.print("maMH: "); String maMHCs12 = Menu.sc.nextLine();
                         System.out.print("maSV: ");  String maSVCs12 = Menu.sc.nextLine();
-
-                        qlHoc.themSV_MH(maMHCs12, maSVCs12, dsSinhVien, dsMonHoc);
-                        
+                        qlHoc.themSV_MH(maMHCs12, maSVCs12, dsSinhVien, dsMonHoc);  
+                        break;
+                    case 13:
+                        quanLySinhVien.docDanhSachSinhVien(dsSinhVien);
+                        quanLyLop.docDanhSachLop(dsLop);
+                        System.out.print("maSV: ");  String maSVCs13 = Menu.sc.nextLine();
+                        quanLySinhVien.updateSinhVien(maSVCs13, dsSinhVien,dsLop);
+                        break;
+                    case 14:
+                        quanLyLop.docDanhSachLop(dsLop);
+                        System.out.print("maLop: ");  String maLopCs14 = Menu.sc.nextLine();
+                        quanLyLop.suaLop(maLopCs14, dsLop);
+                        break;
+                    case 15:
+                        quanLyMonHoc.docDanhSachMonHoc(dsMonHoc);
+                        System.out.print("maMH: ");  String maMHCs15 = Menu.sc.nextLine();
+                        quanLyMonHoc.suaMonHoc(maMHCs15, dsMonHoc);
                         break;
 
                }

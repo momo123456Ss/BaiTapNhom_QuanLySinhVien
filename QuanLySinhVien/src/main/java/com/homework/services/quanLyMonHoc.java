@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -74,5 +76,60 @@ public class quanLyMonHoc {
                 System.out.println(query);
         }
        
+    }
+    public void suaMonHoc(String maMH , List<MonHoc> dsMH){
+        boolean checkMH = false;
+        for(MonHoc mh : dsMH){
+            if(maMH.toLowerCase().equals(mh.getMaMH().toLowerCase()))
+            {
+                checkMH = true;
+            }
+        }
+        
+        if(checkMH == false){
+            System.out.println("MaMH ko ton tai!");
+            return;
+        }
+        
+        int choose;
+        do{
+            System.out.println("1.TenMonHoc");
+            System.out.println("2.SoTinChi");
+            System.out.print("Ban chon: "); choose = Menu.sc.nextInt();
+            Menu.sc.nextLine();
+            switch(choose){
+                case 1:
+                    System.out.print("TenMH : "); String tenMH = Menu.sc.nextLine();
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                    String query = "update monhoc set TenMH ='"+ tenMH +  "' where MaMH ='" + maMH +"'";
+                    Statement stmt = null;
+                    stmt = (Statement) conn.createStatement();
+                    stmt.execute(query);
+                    System.out.println(query);
+                    } catch (SQLException ex) {
+                    Logger.getLogger(quanLyMonHoc.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("SoTinChi : "); String soTinChi = Menu.sc.nextLine();
+                    if(!isNumeric(soTinChi)){
+                        System.out.print("soTinChi phai la chu so!");
+                        return;
+                    }
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                    String query = "update monhoc set SoTinChi ='"+ soTinChi +  "' where MaMH ='" + maMH +"'";
+                    Statement stmt = null;
+                    stmt = (Statement) conn.createStatement();
+                    stmt.execute(query);
+                    System.out.println(query);
+                    } catch (SQLException ex) {
+                    Logger.getLogger(quanLyMonHoc.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+
+
+            }
+        }while(choose != 0);
     }
 }

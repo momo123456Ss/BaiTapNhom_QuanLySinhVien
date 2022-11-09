@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -82,4 +84,53 @@ public class quanLyLop {
 
             } 
     }
+    public void suaLop(String maLop,List<Lop> dsLop){
+        boolean checkLop = false;
+        for(Lop lop : dsLop){
+            if(maLop.toLowerCase().equals(lop.getMaLop().toLowerCase())){
+                checkLop = true;
+            }
+        }
+        if(checkLop == false){
+            System.out.println("MaLop ko ton tai!");
+            return;
+        }
+        int choose;
+        do{
+            System.out.println("1.TenLop");
+            System.out.println("2.GVCN");
+            System.out.print("Ban chon: "); choose = Menu.sc.nextInt();
+            Menu.sc.nextLine();
+            switch(choose){
+                case 1:
+                    System.out.print("TenLop : "); String tenLop = Menu.sc.nextLine();
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                    String query = "update lop set TenLop ='"+ tenLop +  "' where MaLop ='" + maLop +"'";
+                    Statement stmt = null;
+                    stmt = (Statement) conn.createStatement();
+                    stmt.execute(query);
+                    System.out.println(query);
+                    break;
+                    }   catch (SQLException ex) {
+                    Logger.getLogger(quanLyLop.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 2:
+                    System.out.print("GVCN : "); String gVCN = Menu.sc.nextLine();
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                    String query = "update lop set GVCN ='"+ gVCN +  "' where MaLop ='" + maLop +"'";
+                    Statement stmt = null;
+                    stmt = (Statement) conn.createStatement();
+                    stmt.execute(query);
+                    System.out.println(query);
+                    break;
+                    }   catch (SQLException ex) {
+                    Logger.getLogger(quanLyLop.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+
+            }
+        }while(choose != 0);
+    }
 }
+ 

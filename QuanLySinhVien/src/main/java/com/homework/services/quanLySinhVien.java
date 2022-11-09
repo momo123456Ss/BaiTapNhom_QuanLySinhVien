@@ -4,14 +4,21 @@
  */
 package com.homework.services;
 
+import com.homework.doituong.Lop;
 import com.homework.doituong.SinhVien;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -104,5 +111,150 @@ public class quanLySinhVien {
                 
 
             } 
+    }
+     public static boolean isValidDate(final String date) {
+
+        boolean valid = false;
+
+        try {
+
+            // ResolverStyle.STRICT for 30, 31 days checking, and also leap year.
+            LocalDate.parse(date,
+                    DateTimeFormatter.ofPattern("uuuu-M-d")
+                            .withResolverStyle(ResolverStyle.STRICT)
+            );
+
+            valid = true;
+
+        } catch (DateTimeParseException e) {
+            //e.printStackTrace();
+            valid = false;
+        }
+
+        return valid;
+    }
+    public void updateSinhVien(String maSV,List<SinhVien> dsSV,List<Lop> dsLop){
+        boolean checkSV = false;
+        for(SinhVien sv: dsSV){
+            if(maSV.equals(Integer.toString(sv.getMaSV()))){
+                 checkSV = true;
+            }
+        }
+        
+        if(checkSV == false){
+            System.out.print("MaSV ko ton tai!");
+            return;
+        }
+        int choose;
+        do{
+            System.out.println("1.Ho");
+            System.out.println("2.Ten");
+            System.out.println("3.Gioi tinh");
+            System.out.println("4.Ngay sinh");
+            System.out.println("5.Que quan");
+            System.out.println("6.Ma lop");
+            System.out.print("Ban chon: ");
+            choose = Menu.sc.nextInt();
+            Menu.sc.nextLine();
+            switch(choose){
+                case 1:
+                    System.out.print("Nhap HoSV: "); String hoSV = Menu.sc.nextLine();
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update sinhvien set HoSV = '" + hoSV + "' where MaSV = '" + maSV +"'";        
+                         Statement stmt = null;
+                         stmt = (Statement) conn.createStatement();
+                         stmt.execute(query);
+                          System.out.println(query);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(quanLySinhVien.class.getName()).log(Level.SEVERE, null, ex);
+                    }   
+                    break;
+                case 2:
+                    System.out.print("Nhap TenSV: "); String tenSV = Menu.sc.nextLine();
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update sinhvien set TenSV = '" + tenSV + "' where MaSV = '" + maSV +"'";        
+                         Statement stmt = null;
+                         stmt = (Statement) conn.createStatement();
+                         stmt.execute(query);
+                          System.out.println(query);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(quanLySinhVien.class.getName()).log(Level.SEVERE, null, ex);
+                    }   
+                    break;
+                case 3:
+                    boolean  checkGioiTinh = false;
+                    System.out.print("Nhap GioiTinh: "); String gioiTinh = Menu.sc.nextLine();
+                    if(gioiTinh.toLowerCase().equalsIgnoreCase("Nam") || gioiTinh.toLowerCase().equalsIgnoreCase("Nu")){
+                        checkGioiTinh = true;
+                    }
+                    if(checkGioiTinh == false){
+                        System.out.print("GioiTinh la Nam hoac Nu \n");
+                        return;
+                    }
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update sinhvien set GioiTinh = '" + gioiTinh + "' where MaSV = '" + maSV +"'";        
+                         Statement stmt = null;
+                         stmt = (Statement) conn.createStatement();
+                         stmt.execute(query);
+                          System.out.println(query);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(quanLySinhVien.class.getName()).log(Level.SEVERE, null, ex);
+                    }   
+                    break;
+                case 4:
+                    System.out.print("Nhap NgaySinh: "); String ngaySinh = Menu.sc.nextLine();
+                    if(!isValidDate(ngaySinh)){
+                        System.out.println("ngaySinh phai la yyyy-MM-dd");
+                        return;
+                    }
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update sinhvien set NgaySinh = '" + ngaySinh + "' where MaSV = '" + maSV +"'";        
+                         Statement stmt = null;
+                         stmt = (Statement) conn.createStatement();
+                         stmt.execute(query);
+                          System.out.println(query);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(quanLySinhVien.class.getName()).log(Level.SEVERE, null, ex);
+                    }   
+                    
+                    break;
+                case 5:
+                    System.out.print("Nhap QueQuan: "); String queQuan = Menu.sc.nextLine();
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update sinhvien set QueQuan = '" + queQuan + "' where MaSV = '" + maSV +"'";        
+                         Statement stmt = null;
+                         stmt = (Statement) conn.createStatement();
+                         stmt.execute(query);
+                          System.out.println(query);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(quanLySinhVien.class.getName()).log(Level.SEVERE, null, ex);
+                    }    
+                    break;
+                case 6:
+                    boolean checkLop = false;
+                    System.out.print("Nhap MaLop: "); String maLop = Menu.sc.nextLine();
+                    for(Lop lp : dsLop){
+                        if(maLop.toLowerCase().equals(lp.getMaLop().toLowerCase())){
+                            checkLop = true;
+                        }
+                    }
+                    if(checkLop == false){
+                        System.out.println("Ma lop ko ton tai!");
+                        return;
+                    }
+                    try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                        String query = "update sinhvien set TenSV = '" + maLop + "' where MaSV = '" + maSV +"'";        
+                         Statement stmt = null;
+                         stmt = (Statement) conn.createStatement();
+                         stmt.execute(query);
+                          System.out.println(query);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(quanLySinhVien.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                    
+
+            }
+        }while(choose != 0);
     }
 }

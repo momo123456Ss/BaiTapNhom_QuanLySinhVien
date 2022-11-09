@@ -11,6 +11,7 @@ import com.homework.doituong.SinhVien;
 import com.homework.services.Menu;
 import com.homework.services.quanLyLop;
 import com.homework.services.quanLySinhVien;
+import static com.homework.services.quanLySinhVien.isValidDate;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -295,7 +296,10 @@ public class themSinhVien extends javax.swing.JFrame {
                     if (txtNgaySinh.getText().isEmpty()){
                         txtNgaySinh.setText("1990-01-01");
                     }
-
+                    if(!isValidDate(txtNgaySinh.getText())){
+                           JOptionPane.showMessageDialog(this, "Ngay sinh phai la yyyy-MM-dd!", "Thong bao", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                     String sql = "INSERT INTO sinhvien (MaSV,HoSV,TenSV,GioiTinh,NgaySinh,QueQuan,MaLop) VALUES ('"
                             + txtMaSV.getText() + "','"
                             +txtHo.getText() + "','"
@@ -366,12 +370,21 @@ public class themSinhVien extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 Logger.getLogger(themSinhVien.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+        boolean checkSV = false; 
         for(SinhVien sv : this.dsSV){
-            if(!txtMaSV.getText().equals(sv.getMaSV())){
-                  JOptionPane.showMessageDialog(this,"MaSV khong ton tai!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
-                   return;
+            if(txtMaSV.getText().equals(Integer.toString(sv.getMaSV()))){
+//                  JOptionPane.showMessageDialog(this,"MaSV khong ton tai!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
+//                  return;
+                    checkSV = true;
             }
+        }
+        if(checkSV == false){
+                  JOptionPane.showMessageDialog(this,"MaSV khong ton tai!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
+                  return;
+        }
+         if(!isValidDate(txtNgaySinh.getText())){
+            JOptionPane.showMessageDialog(this, "Ngay sinh phai la yyyy-MM-dd!", "Thong bao", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         try (Connection conn = com.homework.services.JdbcUtils.getConn()){
                 String query = "update sinhvien set HoSV ='"
