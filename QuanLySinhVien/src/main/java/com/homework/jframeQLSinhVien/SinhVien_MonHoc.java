@@ -296,7 +296,7 @@ public class SinhVien_MonHoc extends javax.swing.JFrame {
                             + txtMaMH.getText() + "','"
                             + txtMaSV.getText() + "','"
                             + txtNgayDangKy.getText() + "','"
-                            + txtDiem.getText() + "','"
+                            + 0 + "','"
                             + booleanPrimitiveToIntTernary(Boolean.parseBoolean(cbSubmit.getSelectedItem().toString()))+ "')";
                     JOptionPane.showMessageDialog(this,sql,"Alter",JOptionPane.INFORMATION_MESSAGE);
                     stmt = (Statement) conn.createStatement();
