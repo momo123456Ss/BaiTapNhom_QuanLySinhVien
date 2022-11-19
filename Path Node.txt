@@ -8,4 +8,6 @@ Consolse:
 Add :isValidDate()
 Consolse:
 +Void Update : SinhVien,Lop,MonHoc,Hoc
-
+19/11/2022
+Repair: Update MonHoc
+DanhSach : set Table.Enable = false

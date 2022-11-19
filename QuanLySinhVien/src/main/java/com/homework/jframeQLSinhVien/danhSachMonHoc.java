@@ -58,6 +58,7 @@ public class danhSachMonHoc extends javax.swing.JFrame {
                 "MaMH", "TenMH", "So tin chi"
             }
         ));
+        tbDSMonHoc.setEnabled(false);
         jScrollPane1.setViewportView(tbDSMonHoc);
 
         txtFMonHoc.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N

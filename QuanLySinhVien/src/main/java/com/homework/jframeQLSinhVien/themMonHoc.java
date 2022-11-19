@@ -251,13 +251,17 @@ public class themMonHoc extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(themMonHoc.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+            boolean checkMH = false;
             for(MonHoc mh : this.dsMH){
-            if(!mh.getMaMH().toLowerCase().equals(txtMaMH.getText().toLowerCase())){
-                  
+            if(mh.getMaMH().toLowerCase().equals(txtMaMH.getText().toLowerCase())){
+                  checkMH = true;
+//                JOptionPane.showMessageDialog(this,"Khong ton tai mon hoc!","Thong bao",JOptionPane.ERROR_MESSAGE);
+//                return;
+            }
+            }
+            if(checkMH == false){
                 JOptionPane.showMessageDialog(this,"Khong ton tai mon hoc!","Thong bao",JOptionPane.ERROR_MESSAGE);
                 return;
-            }
             }
             if(!isNumeric(txtSoTinChi.getText())){
                 JOptionPane.showMessageDialog(this,"So tin chi phai la chu so!","Thong bao",JOptionPane.ERROR_MESSAGE);

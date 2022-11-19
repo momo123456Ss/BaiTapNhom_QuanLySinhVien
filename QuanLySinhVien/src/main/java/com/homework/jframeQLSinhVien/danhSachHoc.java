@@ -60,6 +60,7 @@ public class danhSachHoc extends javax.swing.JFrame {
                 "MaMH", "MaSV", "Ngay dang ky", "Diem", "Submit"
             }
         ));
+        tbHoc.setEnabled(false);
         jScrollPane1.setViewportView(tbHoc);
 
         label1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N

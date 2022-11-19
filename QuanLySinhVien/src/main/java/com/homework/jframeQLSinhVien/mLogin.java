@@ -5,7 +5,7 @@
 package com.homework.jframeQLSinhVien;
 
 import com.homework.doituong.userPassword;
-import com.homework.quanlysinhvien.App;
+
 import java.awt.event.KeyEvent;
 import javafx.application.Application;
 import javax.swing.JFrame;
