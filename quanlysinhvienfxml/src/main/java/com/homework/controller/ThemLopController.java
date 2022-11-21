@@ -6,6 +6,8 @@ package com.homework.controller;
 
 import com.homework.doituong.Lop;
 import com.homework.services.quanLyLop;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,7 +20,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
@@ -63,7 +68,13 @@ public class ThemLopController implements Initializable {
     @FXML
     public void btInsert(ActionEvent evt) throws SQLException{
         if(txtMaLop.getText().isEmpty() || txtTenLop.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Nhap du thong tín!", "Thong bao", JOptionPane.ERROR_MESSAGE);
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Nhap thong tin!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
             return;
         }
         else{
@@ -86,7 +97,13 @@ public class ThemLopController implements Initializable {
                 txtGVCN.setText("null");
                 txtTenLop.setText("");
                 txtMaLop.setText("");
-                JOptionPane.showMessageDialog(null, "Ma Lop ton tai!", "Thong bao", JOptionPane.ERROR_MESSAGE);
+                Exception e = new Exception("An exception!!!!!!!");
+                StringWriter sw = new StringWriter();
+                e.printStackTrace(new PrintWriter(sw));
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Ma Lop ton tai!");
+                alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                alert.showAndWait();
                 return;
             }
             
@@ -99,7 +116,13 @@ public class ThemLopController implements Initializable {
                     String sql = "INSERT INTO lop (MaLop,TenLop,GVCN) VALUES ('"+ txtMaLop.getText() + "','"+txtTenLop.getText() + "','"+ txtGVCN.getText() + "')";
                     stmt = (Statement) conn.createStatement();
                     stmt.executeUpdate(sql);
-                    JOptionPane.showMessageDialog(null,sql,"Alter",JOptionPane.INFORMATION_MESSAGE);
+                    Exception e = new Exception("An exception!!!!!!!");
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(sql);
+                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                    alert.showAndWait();
                 
 
             } 
@@ -133,7 +156,13 @@ public class ThemLopController implements Initializable {
             }          
         }
         if(checkTonTai == false){
-            JOptionPane.showMessageDialog(null, "Ma Lop khong ton tai!", "Thong bao", JOptionPane.ERROR_MESSAGE);
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("MaLop ko ton tai!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
             txtTenLop.setText("");
             txtGVCN.setText("null");
             txtMaLop.setText("");
@@ -152,7 +181,13 @@ public class ThemLopController implements Initializable {
             Logger.getLogger(ThemLopController.class.getName()).log(Level.SEVERE, null, ex);
         }
          if(txtMaLop.getText().isEmpty() || txtTenLop.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Nhap du thong tín!", "Thong bao", JOptionPane.ERROR_MESSAGE);
+             Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Nhap du thong tin!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
          }
          else{
              for(Lop lop : this.dsLop){
@@ -163,7 +198,13 @@ public class ThemLopController implements Initializable {
              if(check == false){
                     txtTenLop.setText("");
                      txtGVCN.setText("");
-                     JOptionPane.showMessageDialog(null,"Ma Lop khong ton tai!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
+                     Exception e = new Exception("An exception!!!!!!!");
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("MaLop ko ton tai!");
+                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                    alert.showAndWait();
                      return;
              }
           try (Connection conn = com.homework.services.JdbcUtils.getConn()){
@@ -171,7 +212,13 @@ public class ThemLopController implements Initializable {
                 Statement stmt = null;
                 stmt = (Statement) conn.createStatement();
                 stmt.execute(query);
-                JOptionPane.showMessageDialog(null,"OK!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
+                Exception e = new Exception("An exception!!!!!!!");
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Ok!");
+                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                    alert.showAndWait();
         }   catch (SQLException ex) { 
                 Logger.getLogger(ThemLopController.class.getName()).log(Level.SEVERE, null, ex);
             } 

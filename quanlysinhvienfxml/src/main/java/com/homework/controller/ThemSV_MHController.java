@@ -11,6 +11,8 @@ import com.homework.doituong.sinhVien;
 import com.homework.services.quanLyHoc;
 import com.homework.services.quanLyMonHoc;
 import com.homework.services.quanLySinhVien;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -27,9 +29,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
@@ -119,7 +124,13 @@ public class ThemSV_MHController implements Initializable {
         }
         
         if(checkSV == false&& checkMH == false){
-           JOptionPane.showMessageDialog(null,"MaMH hoac MaSV ko ton tai","Alter",JOptionPane.INFORMATION_MESSAGE);
+                Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("MaSV hoac MaMH ko ton tai!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
            return;
         }
         
@@ -131,7 +142,13 @@ public class ThemSV_MHController implements Initializable {
                             + datePick.getValue().toString() + "','"
                             + 0 + "','"
                             + cbSubmit.getValue()+ "')";
-                    JOptionPane.showMessageDialog(null,sql,"Alter",JOptionPane.INFORMATION_MESSAGE);
+                        Exception e = new Exception("An exception!!!!!!!");
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(sql);
+                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                    alert.showAndWait();
                     stmt = (Statement) conn.createStatement();
                     stmt.executeUpdate(sql);
                     
@@ -152,12 +169,24 @@ public class ThemSV_MHController implements Initializable {
     @FXML
     private void btUpdate(ActionEvent event) {
         if(checkData == false){
-            JOptionPane.showMessageDialog(null,"Check first!","Alter",JOptionPane.INFORMATION_MESSAGE);
+                Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Check first!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
             return;            
         }
         
         if(txtMaMH.getText().isEmpty() || txtMaSV.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Nhap MaSV va MaMH ","Thong bao!",JOptionPane.ERROR_MESSAGE);
+                Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Nhap MaSV va MaMH!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
             return;
         }
         
@@ -178,7 +207,13 @@ public class ThemSV_MHController implements Initializable {
         }
        
         if(!sinhVien.isNumeric(txtDiem.getText())){
-            JOptionPane.showMessageDialog(null,"Diem phai la so!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
+                Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Diem phai la so");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
             return;
         }
             try (Connection conn = com.homework.services.JdbcUtils.getConn()){
@@ -199,7 +234,13 @@ public class ThemSV_MHController implements Initializable {
                     cbSubmit.setDisable(false);
                     txtDiem.setDisable(false);
                 }
-                JOptionPane.showMessageDialog(null,"OK!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
+                    Exception e = new Exception("An exception!!!!!!!");
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Ok!");
+                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                    alert.showAndWait();
         }   catch (SQLException ex) { 
                 Logger.getLogger(ThemSV_MHController.class.getName()).log(Level.SEVERE, null, ex);
             } 
@@ -240,8 +281,13 @@ public class ThemSV_MHController implements Initializable {
             
         }
         if(check == false){
-            
-            JOptionPane.showMessageDialog(null,"Du lieu ko ton tai!","Alter",JOptionPane.INFORMATION_MESSAGE);
+                Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du lieu ko ton tai!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
             return;
         }
         if(cbSubmit.getValue().equals(1)){
