@@ -279,7 +279,6 @@ public class themSinhVien extends javax.swing.JFrame {
                 Logger.getLogger(themSinhVien.class.getName()).log(Level.SEVERE, null, ex);
             }
             boolean check = false;
-            int dem = 0;
             for(SinhVien sv : this.dsSV){
                 if(txtMaSV.getText().equals(Integer.toString(sv.getMaSV()))){
                     JOptionPane.showMessageDialog(this, "Ma SV ton tai!", "Thong bao", JOptionPane.ERROR_MESSAGE);

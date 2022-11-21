@@ -38,6 +38,7 @@ public class danhSachMonHoc extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDSMonHoc = new javax.swing.JTable();
         txtFMonHoc = new java.awt.TextField();
+        btReload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -73,19 +74,27 @@ public class danhSachMonHoc extends javax.swing.JFrame {
             }
         });
 
+        btReload.setText("Reload");
+        btReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReloadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                        .addComponent(btReload)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -93,6 +102,7 @@ public class danhSachMonHoc extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btReload)
                     .addComponent(jLabel1)
                     .addComponent(txtFMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -148,6 +158,28 @@ public class danhSachMonHoc extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFMonHocTextValueChanged
 
+    private void btReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReloadActionPerformed
+        // TODO add your handling code here:
+        dsMonHoc.clear();
+         DefaultTableModel tbmSinhVien = (DefaultTableModel) tbDSMonHoc.getModel();
+            int rowCount = tbmSinhVien.getRowCount();
+            for(int i = rowCount -1;i >= 0;i--){
+                tbmSinhVien.removeRow(i);
+            }
+            
+        try {
+            quanLyMonHoc qlMonHoc = new quanLyMonHoc();
+            qlMonHoc.docDanhSachMonHoc(dsMonHoc);
+        } catch (SQLException ex) {
+            Logger.getLogger(danhSachMonHoc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         DefaultTableModel tbmMonHoc = (DefaultTableModel) tbDSMonHoc.getModel();
+        for(MonHoc mh : this.dsMonHoc){
+            tbmMonHoc.addRow(new Object[]{mh.getMaMH(),mh.getTenMH(),mh.getSoTinChi()});
+        }
+        
+    }//GEN-LAST:event_btReloadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,6 +216,7 @@ public class danhSachMonHoc extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btReload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbDSMonHoc;

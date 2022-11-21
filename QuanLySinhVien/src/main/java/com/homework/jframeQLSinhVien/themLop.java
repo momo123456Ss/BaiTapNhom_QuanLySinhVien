@@ -175,10 +175,13 @@ public class themLop extends javax.swing.JFrame {
             
             boolean check = false;
             for(Lop lop : this.dsLop){
-                if(lop.getMaLop().equals(txtMaLop.getText())){
-                    JOptionPane.showMessageDialog(this, "Ma Lop ton tai!", "Thong bao", JOptionPane.ERROR_MESSAGE);
-                    return;
+                if(lop.getMaLop().toLowerCase().equals(txtMaLop.getText().toLowerCase())){
+                    check = true;
                 }
+            }
+            if(check == true){
+                JOptionPane.showMessageDialog(this, "Ma Lop ton tai!", "Thong bao", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             
             Statement stmt = null;
@@ -202,7 +205,8 @@ public class themLop extends javax.swing.JFrame {
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
         // TODO add your handling code here:
-         dsLop.clear();  
+         dsLop.clear(); 
+         boolean check = false;
          try {
                 quanLyLop qlLop = new quanLyLop();
                 qlLop.docDanhSachLop(dsLop);
@@ -214,12 +218,15 @@ public class themLop extends javax.swing.JFrame {
          }
          else{
              for(Lop lop : this.dsLop){
-                 if(!lop.getMaLop().toLowerCase().equals(txtMaLop)){
-                      txtTenLop.setText("");
-                      txtGVCN.setText("");
+                 if(lop.getMaLop().toLowerCase().equals(txtMaLop.getText().toLowerCase())){
+                     check = true;
+                 }
+             }
+             if(check == false){
+                    txtTenLop.setText("");
+                     txtGVCN.setText("");
                      JOptionPane.showMessageDialog(this,"Ma Lop khong ton tai!","Thong bao",JOptionPane.INFORMATION_MESSAGE);
                      return;
-                 }
              }
           try (Connection conn = com.homework.services.JdbcUtils.getConn()){
                 String query = "update lop set TenLop ='"+txtTenLop.getText() + "',GVCN ='"+ txtGVCN.getText() + "' where MaLop ='" + txtMaLop.getText() +"'";

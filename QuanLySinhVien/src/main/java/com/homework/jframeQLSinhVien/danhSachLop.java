@@ -39,6 +39,7 @@ public class danhSachLop extends javax.swing.JFrame {
         tbLop = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtFLop = new java.awt.TextField();
+        btReload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -70,6 +71,13 @@ public class danhSachLop extends javax.swing.JFrame {
             }
         });
 
+        btReload.setText("Reload");
+        btReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReloadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,7 +90,8 @@ public class danhSachLop extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFLop, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btReload)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,7 +100,8 @@ public class danhSachLop extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtFLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btReload))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -148,6 +158,25 @@ public class danhSachLop extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFLopTextValueChanged
 
+    private void btReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReloadActionPerformed
+        // TODO add your handling code here:
+        dsLop.clear();
+        DefaultTableModel tbmLop = (DefaultTableModel) tbLop.getModel();
+        int rowCount = tbmLop.getRowCount();
+            for(int i = rowCount -1;i >= 0;i--){
+                tbmLop.removeRow(i);
+            }
+        try {
+            quanLyLop qlLop = new quanLyLop();
+            qlLop.docDanhSachLop(dsLop);
+        } catch (SQLException ex) {
+            Logger.getLogger(danhSachLop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(Lop lop: this.dsLop){
+            tbmLop.addRow(new Object[] {lop.getMaLop(),lop.getTenLop(),lop.getgVCN()});
+        }
+    }//GEN-LAST:event_btReloadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,6 +213,7 @@ public class danhSachLop extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btReload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbLop;

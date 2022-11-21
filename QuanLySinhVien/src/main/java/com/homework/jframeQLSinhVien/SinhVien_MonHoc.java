@@ -212,8 +212,8 @@ public class SinhVien_MonHoc extends javax.swing.JFrame {
     private List<Hoc> dsHoc = new ArrayList<>();
     private void txtMaMHTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_txtMaMHTextValueChanged
         // TODO add your handling code here:
-         if(txtMaMH.getText().isEmpty() || txtMaSV.getText().isEmpty()){
-             cbSubmit.enable(true);
+        if(txtMaMH.getText().isEmpty() || txtMaSV.getText().isEmpty()){
+            cbSubmit.enable(true);
             txtDiem.enable(true);
             txtNgayDangKy.setText("");
             txtDiem.setText("0.00");

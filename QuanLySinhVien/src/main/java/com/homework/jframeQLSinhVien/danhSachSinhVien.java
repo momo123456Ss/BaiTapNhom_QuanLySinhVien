@@ -53,6 +53,7 @@ public class danhSachSinhVien extends javax.swing.JFrame {
         tbDanhSachSinhVien = new javax.swing.JTable();
         label1 = new java.awt.Label();
         txtFTimKiem = new java.awt.TextField();
+        btReload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Danh sach sinh vien");
@@ -99,6 +100,13 @@ public class danhSachSinhVien extends javax.swing.JFrame {
             }
         });
 
+        btReload.setText("Reload");
+        btReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReloadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +119,8 @@ public class danhSachSinhVien extends javax.swing.JFrame {
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btReload)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,7 +129,8 @@ public class danhSachSinhVien extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btReload))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -194,6 +204,27 @@ public class danhSachSinhVien extends javax.swing.JFrame {
        
     }//GEN-LAST:event_formWindowClosed
 
+    private void btReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReloadActionPerformed
+        // TODO add your handling code here:
+         dsSinhVien.clear();
+         DefaultTableModel tbmSinhVien = (DefaultTableModel) tbDanhSachSinhVien.getModel();
+            int rowCount = tbmSinhVien.getRowCount();
+            for(int i = rowCount -1;i >= 0;i--){
+                tbmSinhVien.removeRow(i);
+            }
+        try {
+            quanLySinhVien qlSV = new quanLySinhVien();
+            qlSV.docDanhSachSinhVien(dsSinhVien);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            Logger.getLogger(danhSachSinhVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(SinhVien sv : this.dsSinhVien){
+           tbmSinhVien.addRow(new Object[] {sv.getMaSV(),sv.getHoSV(),sv.getTenSV(),sv.getGioiTinh(),sv.getQueQuan(),sv.getMaLop(),Menu.F.format(sv.getNgaySinh())});
+        }
+    }//GEN-LAST:event_btReloadActionPerformed
+
     
 
 
@@ -236,6 +267,7 @@ public class danhSachSinhVien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btReload;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private javax.swing.JTable tbDanhSachSinhVien;
