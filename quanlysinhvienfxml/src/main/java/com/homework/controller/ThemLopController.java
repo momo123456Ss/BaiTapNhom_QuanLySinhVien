@@ -151,7 +151,7 @@ public class ThemLopController implements Initializable {
         for(Lop lop : this.dsLop){
             if(lop.getMaLop().toLowerCase().equals(txtMaLop.getText().toLowerCase())){
                 txtTenLop.setText(lop.getTenLop());
-                txtGVCN.setText(lop.getgVCN());
+                txtGVCN.setText(lop.getGiaoVien());
                 checkTonTai = true;
             }          
         }

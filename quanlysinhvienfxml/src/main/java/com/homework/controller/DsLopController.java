@@ -5,10 +5,8 @@
 package com.homework.controller;
 
 import com.homework.doituong.Lop;
-import com.homework.doituong.sinhVien;
 import com.homework.services.quanLyLop;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -21,13 +19,11 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ScrollPane;
+
 import javafx.scene.control.SelectionMode;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 /**
@@ -45,11 +41,11 @@ public class DsLopController implements Initializable {
     
     ObservableList<Lop> dsLop = FXCollections.observableArrayList();
     @FXML
-    private TableColumn<Lop, String> maLopFX;
-    @FXML
-    private TableColumn<Lop, String> gVCN;
-    @FXML
     private TextField txtSearch;
+    @FXML
+    private TableColumn<Lop, String> maLop;
+    @FXML
+    private TableColumn<Lop, String> giaoVien;
     /**
      * Initializes the controller class.
      */
@@ -72,7 +68,7 @@ public class DsLopController implements Initializable {
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
                 
-                if(Lop.getgVCN().toLowerCase().indexOf(lowerCaseFilter) != -1){
+                if(Lop.getGiaoVien().toLowerCase().indexOf(lowerCaseFilter) != -1){
                     return true;
                 }
                 if(Lop.getMaLop().toLowerCase().indexOf(lowerCaseFilter) != -1){
@@ -90,18 +86,16 @@ public class DsLopController implements Initializable {
         
     }    
     private void loadData() throws SQLException, ParseException {
-        maLopFX.setCellValueFactory(new PropertyValueFactory<>("MaLop"));
-        tenLop.setCellValueFactory(new PropertyValueFactory<>("TenLop"));
-        gVCN.setCellValueFactory(new PropertyValueFactory<>("GVCN"));
+        maLop.setCellValueFactory(new PropertyValueFactory<>("maLop"));
+        tenLop.setCellValueFactory(new PropertyValueFactory<>("tenLop"));
+        giaoVien.setCellValueFactory(new PropertyValueFactory<>("giaoVien"));
         
         
         
-        quanLyLop qlLop = new quanLyLop();
-        qlLop.docDanhSachLop(dsLop);
+        quanLyLop qlMH = new quanLyLop();
+        qlMH.docDanhSachLop(dsLop);
         tbLop.setItems(dsLop);      
         tbLop.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tbLop.getColumns().addAll(this.maLopFX,this.tenLop,this.gVCN);
-        
-        
+        tbLop.getColumns().addAll(this.maLop,this.tenLop,this.giaoVien);
     }
 }

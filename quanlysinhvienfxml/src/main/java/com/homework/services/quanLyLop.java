@@ -33,12 +33,13 @@ public class quanLyLop {
             while (rs.next()) {
                 String maLop = rs.getString("MaLop");
                 String tenLop = rs.getString("TenLop");
-                String gVCN = rs.getString("GVCN");
+                String gVCN = rs.getString("GiaoVien");
                 Lop lop = new Lop(maLop,tenLop,gVCN);
                 ds.add(lop);
             }
         }    
     }
+    
     public void hienThiDanhSachLop(List<Lop> ds){
         for(Lop lp : ds){
             lp.hienThi();
@@ -46,13 +47,13 @@ public class quanLyLop {
     }
     public void timKiem(String a,List<Lop> ds){
         for(Lop lop : ds){
-            if(Objects.isNull(lop.getgVCN()) == false){
+            if(Objects.isNull(lop.getGiaoVien()) == false){
                 if(lop.getTenLop().toLowerCase().contains(a.toLowerCase())||lop.getMaLop().toLowerCase().contains(a.toLowerCase()) || lop.getTenLop().toLowerCase().contains(a.toLowerCase())){
                     lop.hienThi();
                 }
             }
             else if(a.toLowerCase().contains("NULL".toLowerCase())){
-                if(Objects.isNull(lop.getgVCN())){
+                if(Objects.isNull(lop.getGiaoVien())){
                       lop.hienThi();
                 }
             }

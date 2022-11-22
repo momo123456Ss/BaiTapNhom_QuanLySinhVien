@@ -35,7 +35,7 @@ public class App extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-        //311, 183
+        //379, 306
     }
 
     public static void setRoot(String fxml) throws IOException {

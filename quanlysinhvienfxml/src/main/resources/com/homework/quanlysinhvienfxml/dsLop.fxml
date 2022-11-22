@@ -10,9 +10,9 @@
    <children>
       <TableView fx:id="tbLop" layoutX="14.0" layoutY="75.0" prefHeight="311.0" prefWidth="468.0">
         <columns>
-            <TableColumn fx:id="maLopFX" prefWidth="59.0" text="MaLop" />
+            <TableColumn fx:id="maLop" prefWidth="59.0" text="MaLop" />
             <TableColumn fx:id="tenLop" prefWidth="160.0" text="TenLop" />
-            <TableColumn fx:id="gVCN" prefWidth="248.0" text="GVCN" />
+            <TableColumn fx:id="giaoVien" prefWidth="248.0" text="GVCN" />
         </columns>
       </TableView>
       <TextField fx:id="txtSearch" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="261.0" />
