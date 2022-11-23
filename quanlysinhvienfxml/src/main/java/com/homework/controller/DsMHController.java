@@ -17,8 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 
 import javafx.scene.control.TableColumn;
@@ -48,6 +50,8 @@ public class DsMHController implements Initializable {
     ObservableList<MonHoc> dsMH = FXCollections.observableArrayList();
     @FXML
     private TextField txtSearch;
+    @FXML
+    private Button btReload;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -86,6 +90,7 @@ public class DsMHController implements Initializable {
     }    
     
     private void loadData() throws SQLException, ParseException {
+        btReload();
         maMH.setCellValueFactory(new PropertyValueFactory<>("MaMH"));
         tenMH.setCellValueFactory(new PropertyValueFactory<>("TenMH"));
         soTinChi.setCellValueFactory(new PropertyValueFactory<>("SoTinChi"));
@@ -97,6 +102,13 @@ public class DsMHController implements Initializable {
         tbMH.setItems(dsMH);      
         tbMH.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tbMH.getColumns().addAll(this.maMH,this.tenMH,this.soTinChi);
+    }
+
+    @FXML
+    private void btReload() throws SQLException {
+        dsMH.clear();
+        quanLyMonHoc qlMonHoc = new quanLyMonHoc();
+        qlMonHoc.docDanhSachMonHoc(dsMH);
     }
     
 }

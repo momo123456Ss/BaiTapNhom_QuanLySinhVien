@@ -135,4 +135,18 @@ public class quanLyMonHoc {
             }
         }while(choose != 0);
     }
+    public void updateMH(String maMH,String tenMH,int soTinChi){
+        try (Connection conn = com.homework.services.JdbcUtils.getConn()){
+                    String query = "update monhoc set TenMH ='"+ tenMH +  "' where MaMH ='" + maMH +"'";
+                    Statement stmt = null;
+                    stmt = (Statement) conn.createStatement();
+                    stmt.execute(query);
+                    query = "update monhoc set SoTinChi ='"+ soTinChi +  "' where MaMH ='" + maMH +"'";
+                    stmt = (Statement) conn.createStatement();
+                    stmt.execute(query);
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(quanLyMonHoc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

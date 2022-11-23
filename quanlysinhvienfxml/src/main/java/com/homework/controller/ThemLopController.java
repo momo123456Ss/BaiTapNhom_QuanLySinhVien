@@ -215,7 +215,7 @@ public class ThemLopController implements Initializable {
                 Exception e = new Exception("An exception!!!!!!!");
                     StringWriter sw = new StringWriter();
                     e.printStackTrace(new PrintWriter(sw));
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("Ok!");
                     alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
                     alert.showAndWait();

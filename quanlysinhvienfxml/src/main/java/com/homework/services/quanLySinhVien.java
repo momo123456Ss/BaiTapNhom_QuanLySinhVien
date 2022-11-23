@@ -266,4 +266,30 @@ public class quanLySinhVien {
             }
         }while(choose != 0);
     }
+    
+    public void updateSV(int maSV, String hoSV, String tenSV, String gioiTinh, String ngaySinh, String queQuan, String maLop) {
+        try ( Connection conn = com.homework.services.JdbcUtils.getConn()) {
+            String query = "update sinhvien set HoSV = '" + hoSV + "' where MaSV = '" + maSV + "'";
+            Statement stmt = null;
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+            query = "update sinhvien set TenSV = '" + tenSV + "' where MaSV = '" + maSV + "'";
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+            query = "update sinhvien set GioiTinh = '" + gioiTinh + "' where MaSV = '" + maSV + "'";
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+            query = "update sinhvien set NgaySinh = '" + ngaySinh + "' where MaSV = '" + maSV + "'";
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+            query = "update sinhvien set QueQuan = '" + queQuan + "' where MaSV = '" + maSV + "'";
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+            query = "update sinhvien set MaLop = '" + maLop + "' where MaSV = '" + maSV + "'";
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(quanLySinhVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

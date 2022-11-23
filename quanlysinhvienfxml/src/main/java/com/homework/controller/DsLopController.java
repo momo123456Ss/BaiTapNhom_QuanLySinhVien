@@ -17,8 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 import javafx.scene.control.SelectionMode;
 
@@ -46,6 +48,8 @@ public class DsLopController implements Initializable {
     private TableColumn<Lop, String> maLop;
     @FXML
     private TableColumn<Lop, String> giaoVien;
+    @FXML
+    private Button btReload;
     /**
      * Initializes the controller class.
      */
@@ -86,6 +90,7 @@ public class DsLopController implements Initializable {
         
     }    
     private void loadData() throws SQLException, ParseException {
+        btReload();
         maLop.setCellValueFactory(new PropertyValueFactory<>("maLop"));
         tenLop.setCellValueFactory(new PropertyValueFactory<>("tenLop"));
         giaoVien.setCellValueFactory(new PropertyValueFactory<>("giaoVien"));
@@ -97,5 +102,12 @@ public class DsLopController implements Initializable {
         tbLop.setItems(dsLop);      
         tbLop.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tbLop.getColumns().addAll(this.maLop,this.tenLop,this.giaoVien);
+    }
+
+    @FXML
+    private void btReload() throws SQLException {
+        dsLop.clear();
+        quanLyLop qlLop = new quanLyLop();
+        qlLop.docDanhSachLop(dsLop);
     }
 }
