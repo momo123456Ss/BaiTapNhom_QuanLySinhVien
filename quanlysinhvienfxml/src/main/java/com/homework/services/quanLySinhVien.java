@@ -66,7 +66,14 @@ public class quanLySinhVien {
             }
         }
     }
-    
+    public boolean timKiemMaLop(String mapLopString,int maSV,ObservableList<sinhVien> ds){
+        for(sinhVien sv : ds){
+            if(sv.getMaLop().equalsIgnoreCase(mapLopString) && sv.getMaSV() == maSV){
+                return true;
+            }
+        }
+        return false;
+    }
     int dem = 0;
     public void themSinhVien(String ho,String ten,String gioiTinh,String ngaySinh,String queQuan,String maLop) throws SQLException{
                     if(queQuan.isEmpty()){
@@ -245,7 +252,7 @@ public class quanLySinhVien {
                         return;
                     }
                     try (Connection conn = com.homework.services.JdbcUtils.getConn()){
-                        String query = "update sinhvien set TenSV = '" + maLop + "' where MaSV = '" + maSV +"'";        
+                        String query = "update sinhvien set MaLop = '" + maLop + "' where MaSV = '" + maSV +"'";        
                          Statement stmt = null;
                          stmt = (Statement) conn.createStatement();
                          stmt.execute(query);

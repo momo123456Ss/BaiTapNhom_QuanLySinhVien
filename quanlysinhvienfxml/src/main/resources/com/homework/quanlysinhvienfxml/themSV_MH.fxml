@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" opacity="0.75" prefHeight="327.0" prefWidth="317.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.homework.controller.ThemSV_MHController">
+<AnchorPane id="AnchorPane" opacity="0.75" prefHeight="327.0" prefWidth="317.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.homework.controller.ThemSV_MHController">
    <children>
       <Label layoutX="14.0" layoutY="28.0" text="DangKy_NhapDiem" textFill="#48d794">
          <font>

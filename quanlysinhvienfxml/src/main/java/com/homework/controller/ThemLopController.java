@@ -113,7 +113,7 @@ public class ThemLopController implements Initializable {
                         txtGVCN.setText("null");
                     }
                    
-                    String sql = "INSERT INTO lop (MaLop,TenLop,GVCN) VALUES ('"+ txtMaLop.getText() + "','"+txtTenLop.getText() + "','"+ txtGVCN.getText() + "')";
+                    String sql = "INSERT INTO lop (MaLop,TenLop,GiaoVien) VALUES ('"+ txtMaLop.getText() + "','"+txtTenLop.getText() + "','"+ txtGVCN.getText() + "')";
                     stmt = (Statement) conn.createStatement();
                     stmt.executeUpdate(sql);
                     Exception e = new Exception("An exception!!!!!!!");
@@ -208,7 +208,7 @@ public class ThemLopController implements Initializable {
                      return;
              }
           try (Connection conn = com.homework.services.JdbcUtils.getConn()){
-                String query = "update lop set TenLop ='"+txtTenLop.getText() + "',GVCN ='"+ txtGVCN.getText() + "' where MaLop ='" + txtMaLop.getText() +"'";
+                String query = "update lop set TenLop ='"+txtTenLop.getText() + "',GiaoVien ='"+ txtGVCN.getText() + "' where MaLop ='" + txtMaLop.getText() +"'";
                 Statement stmt = null;
                 stmt = (Statement) conn.createStatement();
                 stmt.execute(query);

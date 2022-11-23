@@ -106,6 +106,7 @@ public class DanhsachSVController implements Initializable {
     }    
 
     private void loadData() throws SQLException, ParseException {
+        btReload();
         maSV.setCellValueFactory(new PropertyValueFactory<>("maSV"));
         hoSV.setCellValueFactory(new PropertyValueFactory<>("hoSV"));
         tenSV.setCellValueFactory(new PropertyValueFactory<>("tenSV"));
@@ -128,9 +129,10 @@ public class DanhsachSVController implements Initializable {
     }
     
     @FXML
-    public void btReload(ActionEvent evt) throws SQLException, ParseException{
-        tableSinhVien.getItems().clear();
-        loadData();
+    public void btReload() throws SQLException, ParseException{
+        sVList.clear();
+        quanLySinhVien qlSV = new quanLySinhVien();
+        qlSV.docDanhSachSinhVien(sVList);
     }
             
 }

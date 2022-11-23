@@ -20,7 +20,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +75,8 @@ public class ThemSV_MHController implements Initializable {
     ObservableList<Hoc> dsHoc = FXCollections.observableArrayList();
     ObservableList<MonHoc> dsMH = FXCollections.observableArrayList();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    
+    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -85,12 +89,11 @@ public class ThemSV_MHController implements Initializable {
         txtMaSV.setText("");
         datePick.setValue(LocalDate.now());
         cbSubmit.setValue(0);
-    }    
+    }
 
     @FXML
     private void btInsert(ActionEvent event) throws Exception {
-        
-        
+
         dsHoc.clear();
         dsSV.clear();
         dsMH.clear();
@@ -106,54 +109,53 @@ public class ThemSV_MHController implements Initializable {
         } catch (ParseException ex) {
             Logger.getLogger(ThemSV_MHController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         boolean checkSV = false;
         boolean checkMH = false;
-        for(sinhVien sv : this.dsSV){
-            if(Integer.toString(sv.getMaSV()).equals(txtMaSV.getText())){
-                   checkSV = true;
+        for (sinhVien sv : this.dsSV) {
+            if (Integer.toString(sv.getMaSV()).equals(txtMaSV.getText())) {
+                checkSV = true;
             }
 
         }
-        
-        
-        for(MonHoc mh : this.dsMH){
-            if(mh.getMaMH().toLowerCase().equals(txtMaMH.getText().toLowerCase())){
-                 checkMH = true;
+
+        for (MonHoc mh : this.dsMH) {
+            if (mh.getMaMH().toLowerCase().equals(txtMaMH.getText().toLowerCase())) {
+                checkMH = true;
             }
         }
-        
-        if(checkSV == false&& checkMH == false){
-                Exception e = new Exception("An exception!!!!!!!");
+
+        if (checkSV == false && checkMH == false) {
+            Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("MaSV hoac MaMH ko ton tai!");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
-           return;
+            return;
         }
-        
         Statement stmt = null;
-        try (Connection conn = com.homework.services.JdbcUtils.getConn()){   
-                    String sql = "INSERT INTO hoc (MaMH,MaSV,NgayDangKy,Diem,submit) VALUES ('"
-                            + txtMaMH.getText() + "','"
-                            + txtMaSV.getText() + "','"
-                            + datePick.getValue().toString() + "','"
-                            + 0 + "','"
-                            + cbSubmit.getValue()+ "')";
-                        Exception e = new Exception("An exception!!!!!!!");
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(sql);
-                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
-                    alert.showAndWait();
-                    stmt = (Statement) conn.createStatement();
-                    stmt.executeUpdate(sql);
-                    
-                
-         } catch (SQLException ex) {
+        Date d = new Date();
+        try ( Connection conn = com.homework.services.JdbcUtils.getConn()) {
+            String sql = "INSERT INTO hoc (MaMH,MaSV,NgayDangKy,Diem,submit,time) VALUES ('"
+                    + txtMaMH.getText() + "','"
+                    + txtMaSV.getText() + "','"
+                    + datePick.getValue().toString() + "','"
+                    + 0 + "','"
+                    + 0 + "','"
+                    + String.valueOf(d.getTime()) + "')";
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(sql);
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
+            stmt = (Statement) conn.createStatement();
+            stmt.executeUpdate(sql);
+
+        } catch (SQLException ex) {
             Logger.getLogger(ThemSV_MHController.class.getName()).log(Level.SEVERE, null, ex);
         }
         txtDiem.setText("0.0");
@@ -163,24 +165,24 @@ public class ThemSV_MHController implements Initializable {
         cbSubmit.setValue(0);
         cbSubmit.setDisable(false);
         txtDiem.setDisable(false);
-        
+ 
     }
 
     @FXML
     private void btUpdate(ActionEvent event) {
-        if(checkData == false){
-                Exception e = new Exception("An exception!!!!!!!");
+        if (checkData == false) {
+            Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Check first!");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
-            return;            
+            return;
         }
-        
-        if(txtMaMH.getText().isEmpty() || txtMaSV.getText().isEmpty()){
-                Exception e = new Exception("An exception!!!!!!!");
+
+        if (txtMaMH.getText().isEmpty() || txtMaSV.getText().isEmpty()) {
+            Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -189,7 +191,7 @@ public class ThemSV_MHController implements Initializable {
             alert.showAndWait();
             return;
         }
-        
+
         dsHoc.clear();
         dsSV.clear();
         dsMH.clear();
@@ -205,9 +207,9 @@ public class ThemSV_MHController implements Initializable {
         } catch (ParseException ex) {
             Logger.getLogger(ThemSV_MHController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        if(!sinhVien.isNumeric(txtDiem.getText())){
-                Exception e = new Exception("An exception!!!!!!!");
+
+        if (!sinhVien.isNumeric(txtDiem.getText())) {
+            Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -216,34 +218,33 @@ public class ThemSV_MHController implements Initializable {
             alert.showAndWait();
             return;
         }
-            try (Connection conn = com.homework.services.JdbcUtils.getConn()){
-                String query = "update hoc set Diem ='"
-                        + Double.parseDouble(txtDiem.getText())
-                        + "',submit ='"
-                        + cbSubmit.getValue()
-                        + "' where MaSV ='" + txtMaSV.getText() +"' and MaMH ='"
-                        + txtMaMH.getText() + "'";
-                Statement stmt = null;
-                stmt = (Statement) conn.createStatement();
-                stmt.execute(query);
-                if(cbSubmit.getValue().equals(1)){
-                    cbSubmit.setDisable(true);
-                    txtDiem.setDisable(true);
-                } 
-                else{
-                    cbSubmit.setDisable(false);
-                    txtDiem.setDisable(false);
-                }
-                    Exception e = new Exception("An exception!!!!!!!");
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("Ok!");
-                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
-                    alert.showAndWait();
-        }   catch (SQLException ex) { 
-                Logger.getLogger(ThemSV_MHController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+        try ( Connection conn = com.homework.services.JdbcUtils.getConn()) {
+            String query = "update hoc set Diem ='"
+                    + Double.parseDouble(txtDiem.getText())
+                    + "',submit ='"
+                    + cbSubmit.getValue()
+                    + "' where MaSV ='" + txtMaSV.getText() + "' and MaMH ='"
+                    + txtMaMH.getText() + "'";
+            Statement stmt = null;
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+            if (cbSubmit.getValue().equals(1)) {
+                cbSubmit.setDisable(true);
+                txtDiem.setDisable(true);
+            } else {
+                cbSubmit.setDisable(false);
+                txtDiem.setDisable(false);
+            }
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Ok!");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
+        } catch (SQLException ex) {
+            Logger.getLogger(ThemSV_MHController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         txtDiem.setText("0.0");
         txtMaMH.setText("");
         txtMaSV.setText("");
@@ -257,31 +258,33 @@ public class ThemSV_MHController implements Initializable {
     @FXML
     private void btCheck(ActionEvent event) throws SQLException, ParseException {
         boolean check = false;
-        if(txtMaMH.getText().isEmpty() || txtMaSV.getText().isEmpty()){
+        if (txtMaMH.getText().isEmpty() || txtMaSV.getText().isEmpty()) {
             cbSubmit.setDisable(false);
             txtDiem.setDisable(false);
             datePick.setValue(LocalDate.of(1970, 01, 01));
             txtDiem.setText("0.0");
             cbSubmit.setValue(0);
         }
-        dsSV.clear(); dsMH.clear(); dsHoc.clear();
-        
+        dsSV.clear();
+        dsMH.clear();
+        dsHoc.clear();
+
         quanLyHoc qlHoc = new quanLyHoc();
         qlHoc.docDanhSachHoc(dsHoc);
-        for(Hoc hc : this.dsHoc){
-            if(hc.getMaMH().toLowerCase().equals(txtMaMH.getText().toLowerCase()) && Integer.toString(hc.getMaSV()).equals(txtMaSV.getText())){
+        for (Hoc hc : this.dsHoc) {
+            if (hc.getMaMH().toLowerCase().equals(txtMaMH.getText().toLowerCase()) && Integer.toString(hc.getMaSV()).equals(txtMaSV.getText())) {
 
-                    datePick.setValue(getDateFromString(sinhVien.F.format(hc.getNgayDangKy()), formatter));
-                    txtDiem.setText(Double.toString(hc.getDiem()));
-                    cbSubmit.setValue(hc.isSubmit());
-                    check = true;
-                    checkData = true;
-                
+                datePick.setValue(getDateFromString(sinhVien.F.format(hc.getNgayDangKy()), formatter));
+                txtDiem.setText(Double.toString(hc.getDiem()));
+                cbSubmit.setValue(hc.isSubmit());
+                check = true;
+                checkData = true;
+
             }
-            
+
         }
-        if(check == false){
-                Exception e = new Exception("An exception!!!!!!!");
+        if (check == false) {
+            Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -290,15 +293,14 @@ public class ThemSV_MHController implements Initializable {
             alert.showAndWait();
             return;
         }
-        if(cbSubmit.getValue().equals(1)){
+        if (cbSubmit.getValue().equals(1)) {
             cbSubmit.setDisable(true);
             txtDiem.setDisable(true);
-        } 
-        else{
+        } else {
             cbSubmit.setDisable(false);
             txtDiem.setDisable(false);
         }
-       
+
     }
 
     @FXML
@@ -311,5 +313,5 @@ public class ThemSV_MHController implements Initializable {
         cbSubmit.setDisable(false);
         txtDiem.setDisable(false);
     }
-    
+
 }

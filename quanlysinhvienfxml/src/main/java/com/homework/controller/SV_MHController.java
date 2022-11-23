@@ -18,8 +18,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -54,6 +56,8 @@ public class SV_MHController implements Initializable {
     ObservableList<Hoc> dsHoc = FXCollections.observableArrayList();
     @FXML
     private TextField txtSearchSV;
+    @FXML
+    private Button btReload;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -112,6 +116,7 @@ public class SV_MHController implements Initializable {
         tbSV_MH.setItems(sortData);
     }    
     private void loadData() throws SQLException, ParseException {
+        btReload();
         maMH.setCellValueFactory(new PropertyValueFactory<>("MaMH"));
         maSV.setCellValueFactory(new PropertyValueFactory<>("MaSV"));
         ngayDangKy.setCellValueFactory(new PropertyValueFactory<>("NgayDangKy"));
@@ -125,5 +130,18 @@ public class SV_MHController implements Initializable {
         tbSV_MH.setItems(dsHoc);      
         tbSV_MH.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tbSV_MH.getColumns().addAll(this.maSV,this.maSV,this.ngayDangKy,this.diem,this.submit);
+    }
+
+    @FXML
+    private void btReload() {
+        dsHoc.clear();
+        quanLyHoc qlHoc = new quanLyHoc();
+        try {
+            qlHoc.docDanhSachHoc(dsHoc);
+        } catch (SQLException ex) {
+            Logger.getLogger(SV_MHController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(SV_MHController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
