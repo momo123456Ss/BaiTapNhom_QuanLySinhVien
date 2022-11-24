@@ -42,12 +42,88 @@ public class testSearch {
     public void tearDown() {
     }
     @Test
-    public void testSearchTrue() throws SQLException
+    public void testSearchTenLopTrue() throws SQLException
     {
         quanLyLop qlL= new quanLyLop();
         qlL.docDanhSachLop(dsL);
+        
+        for( Lop lo: this.dsL)
+            if(lo.getMaLop().equalsIgnoreCase("CS2001"))
+            {
+                assertEquals("Khoa hoc may tinh", lo.getTenLop());
+            }
     }
-
+    @Test
+    public void testSearchTenLopFalse() throws SQLException
+    {
+        quanLyLop qlL= new quanLyLop();
+        qlL.docDanhSachLop(dsL);
+        
+        for( Lop lo: this.dsL)
+            if(lo.getMaLop().equalsIgnoreCase("CS2001"))
+            {
+                assertEquals("He thong thong tin", lo.getTenLop());
+            }
+    }
+    @Test
+     public void testSearchGVCNTrue() throws SQLException
+    {
+        quanLyLop qlL= new quanLyLop();
+        qlL.docDanhSachLop(dsL);
+        
+        for( Lop lo: this.dsL)
+            if(lo.getMaLop().equalsIgnoreCase("CS2001"))
+            {
+                assertEquals("Nguyen Van A", lo.getGiaoVien());
+            }
+    }
+     @Test
+      public void testSearchGVCNFalse() throws SQLException
+    {
+        quanLyLop qlL= new quanLyLop();
+        qlL.docDanhSachLop(dsL);
+        
+        for( Lop lo: this.dsL)
+            if(lo.getMaLop().equalsIgnoreCase("CS2001"))
+            {
+                assertEquals("Nguyen Van B", lo.getGiaoVien());
+            }
+    }
+        @Test
+      public void testSearchMaLopTrue() throws SQLException
+    {
+        quanLyLop qlL= new quanLyLop();
+        qlL.docDanhSachLop(dsL);
+        
+        for( Lop lo: this.dsL)
+            if(lo.getGiaoVien().equalsIgnoreCase("Nguyen Van A"))
+            {
+                assertEquals("CS2001", lo.getMaLop());
+            }
+    }
+        @Test
+      public void testSearchMaLopFalse() throws SQLException
+    {
+        quanLyLop qlL= new quanLyLop();
+        qlL.docDanhSachLop(dsL);
+        
+        for( Lop lo: this.dsL)
+            if(lo.getGiaoVien().equalsIgnoreCase("Nguyen Van A"))
+            {
+                assertEquals("CS2002", lo.getMaLop());
+            }
+    }
+       public void testSearchGV_TenMon() throws SQLException
+    {
+        quanLyLop qlL= new quanLyLop();
+        qlL.docDanhSachLop(dsL);
+        
+        for( Lop lo: this.dsL)
+            if(lo.getGiaoVien().equalsIgnoreCase("Nguyen Van A"))
+            {
+                assertEquals("Khoa hoc may tinh", lo.getTenLop());
+            }
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
