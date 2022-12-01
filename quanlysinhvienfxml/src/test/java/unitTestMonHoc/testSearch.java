@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
-package unitTest;
+package unitTestMonHoc;
 
+import com.homework.doituong.MonHoc;
 import com.homework.doituong.sinhVien;
-import com.homework.services.quanLySinhVien;
+import com.homework.services.quanLyMonHoc;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -23,11 +23,11 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author HP
  */
-public class testUpdate {
+public class testSearch {
 
-    private ObservableList<sinhVien> dsSV = FXCollections.observableArrayList();
+    ObservableList<MonHoc> dsMH = FXCollections.observableArrayList();
 
-    public testUpdate() {
+    public testSearch() {
     }
 
     @BeforeAll
@@ -47,25 +47,35 @@ public class testUpdate {
     }
 
     @Test
-    public void testUpdate() {
-        quanLySinhVien qlSV = new quanLySinhVien();
-        qlSV.updateSV(15, "Nguyen", "Khuyen", "Nam", "2002-09-09", "Tp.HCM", "CS2001");
-
+    public void TestSearchTrue() {
         try {
-            qlSV.docDanhSachSinhVien(dsSV);
+            quanLyMonHoc qlMH = new quanLyMonHoc();
+            qlMH.docDanhSachMonHoc(dsMH);
         } catch (SQLException ex) {
-            Logger.getLogger(testUpdate.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(testUpdate.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testSearch.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        for (sinhVien sv : this.dsSV) {
-            if (sv.getMaSV() == 15) {
-                assertEquals("Nguyen Khuyen", sv.getHoSV() + " " + sv.getTenSV());
+        for (MonHoc mh : this.dsMH) {
+            if (mh.getMaMH().equalsIgnoreCase("ITEC0702")) {
+                assertEquals("He thong tin quan ly", mh.getTenMH());
             }
         }
-
     }
+
+    @Test
+    public void TestSearchFalse() {
+        try {
+            quanLyMonHoc qlMH = new quanLyMonHoc();
+            qlMH.docDanhSachMonHoc(dsMH);
+        } catch (SQLException ex) {
+            Logger.getLogger(testSearch.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (MonHoc mh : this.dsMH) {
+            if (mh.getMaMH().equalsIgnoreCase("ITEC0702")) {
+                assertEquals("mang may tinh", mh.getTenMH());
+            }
+        }
+    }
+    
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

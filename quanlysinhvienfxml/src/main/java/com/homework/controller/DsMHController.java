@@ -106,6 +106,7 @@ public class DsMHController implements Initializable {
 
     @FXML
     private void btReload() throws SQLException {
+        txtSearch.setText("");
         dsMH.clear();
         quanLyMonHoc qlMonHoc = new quanLyMonHoc();
         qlMonHoc.docDanhSachMonHoc(dsMH);

@@ -134,6 +134,8 @@ public class SV_MHController implements Initializable {
 
     @FXML
     private void btReload() {
+        txtSearch.setText("");
+        txtSearchSV.setText("");
         dsHoc.clear();
         quanLyHoc qlHoc = new quanLyHoc();
         try {

@@ -213,18 +213,32 @@ public class ThemSV_MHController implements Initializable {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Diem phai la so");
+            alert.setHeaderText("Diem phai la so va khong am");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
             return;
         }
+        if(Double.parseDouble(txtDiem.getText()) < 0  || Double.parseDouble(txtDiem.getText()) > 10)
+        {
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("-1 < Diem < 11");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
+            return;
+            
+        }
+        
         try ( Connection conn = com.homework.services.JdbcUtils.getConn()) {
             String query = "update hoc set Diem ='"
                     + Double.parseDouble(txtDiem.getText())
                     + "',submit ='"
                     + cbSubmit.getValue()
                     + "' where MaSV ='" + txtMaSV.getText() + "' and MaMH ='"
-                    + txtMaMH.getText() + "'";
+                    + txtMaMH.getText() + "' and NgayDangKy ='"
+                    + datePick.getValue() + "'";
             Statement stmt = null;
             stmt = (Statement) conn.createStatement();
             stmt.execute(query);

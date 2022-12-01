@@ -130,6 +130,7 @@ public class DanhsachSVController implements Initializable {
     
     @FXML
     public void btReload() throws SQLException, ParseException{
+        txtSearch.setText("");
         sVList.clear();
         quanLySinhVien qlSV = new quanLySinhVien();
         qlSV.docDanhSachSinhVien(sVList);

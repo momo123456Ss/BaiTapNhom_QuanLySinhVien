@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
-package unitTest;
+package unitTestMonHoc;
 
-import com.homework.doituong.userPassword;
+import com.homework.doituong.MonHoc;
+import com.homework.services.quanLyMonHoc;
+import java.sql.SQLException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,41 +20,41 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author HP
  */
-public class testLogin {
-
-    public testLogin() {
+public class testAdd {
+    ObservableList<MonHoc> dsMH = FXCollections.observableArrayList();
+    public testAdd() {
+        
     }
-
+    
     @BeforeAll
     public static void setUpClass() {
     }
-
+    
     @AfterAll
     public static void tearDownClass() {
     }
-
+    
     @BeforeEach
     public void setUp() {
     }
-
+    
     @AfterEach
     public void tearDown() {
     }
-
+@Test
+public void testAdd() throws SQLException{
+    quanLyMonHoc qlMH= new quanLyMonHoc();
+    qlMH.docDanhSachMonHoc(dsMH);
+    qlMH.themMonHoc("IT2052", "Rot mon", "10", dsMH);
+     for (MonHoc mh : this.dsMH) {
+            if (mh.getMaMH().equalsIgnoreCase("IT2052")) {
+                assertEquals("Rot mon", mh.getTenMH());
+            }
+        }
+}
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     // @Test
     // public void hello() {}
-    @Test
-    public void testLoginTrue() {
-        userPassword up = new userPassword();
-        assertTrue(up.check("@ou.edu.vn", "@Hht2002"));
-    }
-
-    @Test
-    public void testLoginFalse() {
-        userPassword up = new userPassword();
-        assertTrue(up.check("@gmail.com", "@Hht2002"));
-    }
 }

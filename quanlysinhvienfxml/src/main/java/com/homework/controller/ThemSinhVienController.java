@@ -223,7 +223,7 @@ public class ThemSinhVienController implements Initializable {
             Statement stmt = null;
             try (Connection conn = com.homework.services.JdbcUtils.getConn()){                     
                     String sql = "INSERT INTO sinhvien (MaSV,HoSV,TenSV,GioiTinh,NgaySinh,QueQuan,MaLop) VALUES ('"
-                            + maSV.getText() + "','"
+                            + "2051010" + maSV.getText() + "','"
                             +hoSV.getText() + "','"
                             +tenSV.getText() + "','"
                             +cbGioiTinh.getValue() + "','"

@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
-package unitTest3;
+package unitTestLop;
 
 import com.homework.doituong.Lop;
+import com.homework.doituong.MonHoc;
 import com.homework.services.quanLyLop;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
@@ -21,39 +22,42 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author HP
  */
 public class testAdd {
-    private ObservableList<Lop> dsL = FXCollections.observableArrayList();
+
+    public ObservableList<Lop> dsL = FXCollections.observableArrayList();
+
     public testAdd() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
-@Test
-public void testAdd() throws SQLException{
-quanLyLop qlL= new quanLyLop();
-qlL.docDanhSachLop(dsL);
-qlL.themLop("CS2004", "CSDL NC", "Ho Quang Khai", dsL);
-for( Lop lo: this.dsL)
-            if(lo.getGiaoVien().equalsIgnoreCase("Ho Quang Khai"))
-            {
-                assertEquals("CS2004", lo.getMaLop());
-            }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-}}
+    @Test
+    public void testAdd() throws SQLException {
+        quanLyLop qlL = new quanLyLop();
+        qlL.docDanhSachLop(dsL);
+        qlL.themLop("TEST001", "Lop TEST", "", dsL);
+        for (Lop lo : this.dsL) {
+            if (lo.getMaLop().equalsIgnoreCase("TEST001")) {
+                assertEquals("Lop TEST", lo.getTenLop());
+            }
+        }
+        // TODO add test methods here.
+        // The methods must be annotated with annotation @Test. For example:
+        //
+        // @Test
+        // public void hello() {}
+    }
+}

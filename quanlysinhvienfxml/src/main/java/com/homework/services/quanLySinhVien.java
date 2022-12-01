@@ -66,6 +66,15 @@ public class quanLySinhVien {
             }
         }
     }
+    public boolean timKiemMaSV(int maSV,ObservableList<sinhVien> ds){
+        for(sinhVien sv : ds){
+            if(maSV == sv.getMaSV()){
+                return true;
+            }
+            
+        }
+        return false;
+    }
     public boolean timKiemMaLop(String mapLopString,int maSV,ObservableList<sinhVien> ds){
         for(sinhVien sv : ds){
             if(sv.getMaLop().equalsIgnoreCase(mapLopString) && sv.getMaSV() == maSV){
@@ -268,6 +277,7 @@ public class quanLySinhVien {
     }
     
     public void updateSV(int maSV, String hoSV, String tenSV, String gioiTinh, String ngaySinh, String queQuan, String maLop) {
+        
         try ( Connection conn = com.homework.services.JdbcUtils.getConn()) {
             String query = "update sinhvien set HoSV = '" + hoSV + "' where MaSV = '" + maSV + "'";
             Statement stmt = null;

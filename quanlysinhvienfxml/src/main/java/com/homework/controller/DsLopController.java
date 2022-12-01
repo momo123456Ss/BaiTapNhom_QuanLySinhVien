@@ -106,6 +106,7 @@ public class DsLopController implements Initializable {
 
     @FXML
     private void btReload() throws SQLException {
+        txtSearch.setText("");
         dsLop.clear();
         quanLyLop qlLop = new quanLyLop();
         qlLop.docDanhSachLop(dsLop);
