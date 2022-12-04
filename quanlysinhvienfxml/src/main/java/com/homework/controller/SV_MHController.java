@@ -58,6 +58,7 @@ public class SV_MHController implements Initializable {
     private TextField txtSearchSV;
     @FXML
     private Button btReload;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -69,52 +70,64 @@ public class SV_MHController implements Initializable {
             Logger.getLogger(SV_MHController.class.getName()).log(Level.SEVERE, null, ex);
         }
         FilteredList<Hoc> fileteredData = new FilteredList<>(dsHoc, b -> true);
-        txtSearch.textProperty().addListener((observable,oldValue,newValue) -> {
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             fileteredData.setPredicate(Hoc -> {
-                if(newValue == null || newValue.isEmpty()){
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
-                
-               
-                if(Hoc.getMaMH().toLowerCase().contains(lowerCaseFilter) ){
-                    return true;
+                String lowerCaseFilter = newValue.trim().toLowerCase();
+                if (!txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText()) && txtSearch.getText().trim().toLowerCase().equals(lowerCaseFilter)) {
+                        return true;
+                    }
+                } else if (txtSearchSV.getText().trim().isEmpty()) {
+                    if (Hoc.getMaMH().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    }
+                } else if (txtSearch.getText().trim().isEmpty()) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText())) {
+                        return true;
+                    }
                 }
-                
-                else
-                    return false;
+                return false;
             });
         });
         
         SortedList<Hoc> sortData = new SortedList<>(fileteredData);
-        
+
         sortData.comparatorProperty().bind(tbSV_MH.comparatorProperty());
-        
+
         tbSV_MH.setItems(sortData);
-        
-        
-        txtSearchSV.textProperty().addListener((observable,oldValue,newValue) -> {
+
+        txtSearchSV.textProperty().addListener((observable, oldValue, newValue) -> {
             fileteredData.setPredicate(Hoc -> {
-                if(newValue == null || newValue.isEmpty()){
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
-                
-               
-                if(Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter)  ){
-                    return true;
-                }
-                
-                else
-                    return false;
+                String lowerCaseFilter = newValue.trim().toLowerCase();
+
+                if (!txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter) && txtSearch.getText().trim().toLowerCase().equals(Hoc.getMaMH().toLowerCase())) {
+                        return true;
+                    }
+                } else if (txtSearch.getText().trim().isEmpty()) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter)) {   
+                        return true;
+                    }
+                } else if (txtSearchSV.getText().trim().isEmpty()) {
+                    if (txtSearch.getText().toLowerCase().trim().equals(Hoc.getMaMH().toLowerCase())) {
+                        return true;
+                    }
+                }        
+                return false;
             });
         });
-        
-        
+
         sortData.comparatorProperty().bind(tbSV_MH.comparatorProperty());
-        
+
         tbSV_MH.setItems(sortData);
-    }    
+    }
+
     private void loadData() throws SQLException, ParseException {
         btReload();
         maMH.setCellValueFactory(new PropertyValueFactory<>("MaMH"));
@@ -122,14 +135,12 @@ public class SV_MHController implements Initializable {
         ngayDangKy.setCellValueFactory(new PropertyValueFactory<>("NgayDangKy"));
         diem.setCellValueFactory(new PropertyValueFactory<>("Diem"));
         submit.setCellValueFactory(new PropertyValueFactory<>("submit"));
-        
-        
-        
+
         quanLyHoc qlHoc = new quanLyHoc();
         qlHoc.docDanhSachHoc(dsHoc);
-        tbSV_MH.setItems(dsHoc);      
+        tbSV_MH.setItems(dsHoc);
         tbSV_MH.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tbSV_MH.getColumns().addAll(this.maSV,this.maSV,this.ngayDangKy,this.diem,this.submit);
+        tbSV_MH.getColumns().addAll(this.maSV, this.maSV, this.ngayDangKy, this.diem, this.submit);
     }
 
     @FXML

@@ -61,7 +61,7 @@ public class ThemMHController implements Initializable {
 
     @FXML
     private void btInsert(ActionEvent event) {
-        if(txtMaMH.getText().isEmpty() || txtTenMH.getText().isEmpty() || txtSoTinChi.getText().isEmpty()){
+        if(txtMaMH.getText().trim().isEmpty() || txtTenMH.getText().trim().isEmpty() || txtSoTinChi.getText().trim().isEmpty()){
                 Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
@@ -69,6 +69,16 @@ public class ThemMHController implements Initializable {
             alert.setHeaderText("Nhap thong tin!");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
+        }
+        else if(txtMaMH.getText().trim().length() > 8){
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("MaLop < 9 ki tu");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
+            return;
         }
         else{
             if(!isNumeric(txtSoTinChi.getText().toString())){
@@ -110,7 +120,7 @@ public class ThemMHController implements Initializable {
                 if(check == true){  
                     try (Connection conn = com.homework.services.JdbcUtils.getConn()){
                         stmt = (Statement) conn.createStatement();
-                        String query = "INSERT INTO monhoc " + "VALUES ('" + txtMaMH.getText().toString() + "','" + txtTenMH.getText().toString() + "'," + Integer.parseInt(txtSoTinChi.getText().toString()) + ")";
+                        String query = "INSERT INTO monhoc " + "VALUES ('" + txtMaMH.getText().trim().toString() + "','" + txtTenMH.getText().trim().toString() + "'," + Integer.parseInt(txtSoTinChi.getText().trim().toString()) + ")";
                         stmt.executeUpdate(query);
                         Exception e = new Exception("An exception!!!!!!!");
                         StringWriter sw = new StringWriter();

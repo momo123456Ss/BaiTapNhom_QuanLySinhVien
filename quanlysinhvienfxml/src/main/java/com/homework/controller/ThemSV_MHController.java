@@ -113,14 +113,14 @@ public class ThemSV_MHController implements Initializable {
         boolean checkSV = false;
         boolean checkMH = false;
         for (sinhVien sv : this.dsSV) {
-            if (Integer.toString(sv.getMaSV()).equals(txtMaSV.getText())) {
+            if (Integer.toString(sv.getMaSV()).equals(txtMaSV.getText().trim())) {
                 checkSV = true;
             }
 
         }
 
         for (MonHoc mh : this.dsMH) {
-            if (mh.getMaMH().toLowerCase().equals(txtMaMH.getText().toLowerCase())) {
+            if (mh.getMaMH().toLowerCase().equals(txtMaMH.getText().trim().toLowerCase())) {
                 checkMH = true;
             }
         }

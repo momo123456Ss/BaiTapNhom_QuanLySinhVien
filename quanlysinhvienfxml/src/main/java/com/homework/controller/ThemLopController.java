@@ -67,12 +67,22 @@ public class ThemLopController implements Initializable {
     }    
     @FXML
     public void btInsert(ActionEvent evt) throws SQLException{
-        if(txtMaLop.getText().isEmpty() || txtTenLop.getText().isEmpty()){
+        if(txtMaLop.getText().trim().isEmpty() || txtTenLop.getText().trim().isEmpty()){
             Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Nhap thong tin!");
+            alert.setHeaderText("Nhap thong tin! va MaLop 6 ki tu");
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
+            return;
+        }
+        else if(txtMaLop.getText().trim().length() > 6){
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("MaLop < 7 ki tu");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
             return;
@@ -113,7 +123,7 @@ public class ThemLopController implements Initializable {
                         txtGVCN.setText("null");
                     }
                    
-                    String sql = "INSERT INTO lop (MaLop,TenLop,GiaoVien) VALUES ('"+ txtMaLop.getText() + "','"+txtTenLop.getText() + "','"+ txtGVCN.getText() + "')";
+                    String sql = "INSERT INTO lop (MaLop,TenLop,GiaoVien) VALUES ('"+ txtMaLop.getText().trim() + "','"+txtTenLop.getText().trim() + "','"+ txtGVCN.getText().trim() + "')";
                     stmt = (Statement) conn.createStatement();
                     stmt.executeUpdate(sql);
                     Exception e = new Exception("An exception!!!!!!!");

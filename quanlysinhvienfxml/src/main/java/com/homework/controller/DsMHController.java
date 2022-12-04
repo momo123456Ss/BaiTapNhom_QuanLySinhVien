@@ -69,12 +69,12 @@ public class DsMHController implements Initializable {
                 if(newValue == null || newValue.isEmpty()){
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
+                String lowerCaseFilter = newValue.trim().toLowerCase();
                 
-                if(MonHoc.getMaMH().toLowerCase().indexOf(lowerCaseFilter) != -1){
+                if(MonHoc.getMaMH().trim().toLowerCase().indexOf(lowerCaseFilter) != -1){
                     return true;
                 }
-                else if(MonHoc.getTenMH().toLowerCase().indexOf(lowerCaseFilter) != -1){
+                else if(MonHoc.getTenMH().trim().toLowerCase().indexOf(lowerCaseFilter) != -1){
                     return true;
                 }
                 else

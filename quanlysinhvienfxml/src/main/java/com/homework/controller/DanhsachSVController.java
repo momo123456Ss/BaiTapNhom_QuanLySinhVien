@@ -85,12 +85,12 @@ public class DanhsachSVController implements Initializable {
                 if(newValue == null || newValue.isEmpty()){
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
+                String lowerCaseFilter = newValue.trim().toLowerCase();
                 
-                if(String.valueOf(sinhVien.getMaSV()).indexOf(lowerCaseFilter) != -1){
+                if(String.valueOf(sinhVien.getMaSV()).trim().indexOf(lowerCaseFilter) != -1){
                     return true;
                 }
-                else if(sinhVien.getMaLop().toLowerCase().indexOf(lowerCaseFilter) != -1){
+                else if(sinhVien.getMaLop().trim().toLowerCase().indexOf(lowerCaseFilter) != -1){
                     return true;
                 }
                 else

@@ -26,11 +26,11 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <Label layoutX="42.0" layoutY="155.0" text="PASSWORD" textFill="#57e195">
+      <Label layoutX="42.0" layoutY="155.0" text="Password" textFill="#57e195">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <Button layoutX="261.0" layoutY="211.0" mnemonicParsing="false" onAction="#btLogin" text="LOGIN" textFill="#cd7777">
+      <Button layoutX="261.0" layoutY="211.0" mnemonicParsing="false" onAction="#btLogin" text="Login" textFill="#cd7777">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Button>

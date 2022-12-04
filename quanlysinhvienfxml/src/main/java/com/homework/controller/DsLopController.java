@@ -70,12 +70,12 @@ public class DsLopController implements Initializable {
                 if(newValue == null || newValue.isEmpty()){
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
+                String lowerCaseFilter = newValue.trim().toLowerCase();
                 
-                if(Lop.getGiaoVien().toLowerCase().indexOf(lowerCaseFilter) != -1){
+                if(Lop.getGiaoVien().trim().toLowerCase().indexOf(lowerCaseFilter) != -1){
                     return true;
                 }
-                if(Lop.getMaLop().toLowerCase().indexOf(lowerCaseFilter) != -1){
+                if(Lop.getMaLop().trim().toLowerCase().indexOf(lowerCaseFilter) != -1){
                     return true;
                 }
                 else

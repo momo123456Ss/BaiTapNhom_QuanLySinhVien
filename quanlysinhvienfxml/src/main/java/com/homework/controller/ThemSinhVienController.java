@@ -224,12 +224,12 @@ public class ThemSinhVienController implements Initializable {
             try (Connection conn = com.homework.services.JdbcUtils.getConn()){                     
                     String sql = "INSERT INTO sinhvien (MaSV,HoSV,TenSV,GioiTinh,NgaySinh,QueQuan,MaLop) VALUES ('"
                             + "2051010" + maSV.getText() + "','"
-                            +hoSV.getText() + "','"
-                            +tenSV.getText() + "','"
+                            +hoSV.getText().trim() + "','"
+                            +tenSV.getText().trim() + "','"
                             +cbGioiTinh.getValue() + "','"
                             +datePick.getValue() + "','"
-                            +queQuan.getText() + "','"
-                            +maLop.getText()+ "')";
+                            +queQuan.getText().trim() + "','"
+                            +maLop.getText().trim()+ "')";
                     Exception e = new Exception("An exception!!!!!!!");
                     StringWriter sw = new StringWriter();
                     e.printStackTrace(new PrintWriter(sw));
@@ -322,7 +322,7 @@ public class ThemSinhVienController implements Initializable {
         
         try (Connection conn = com.homework.services.JdbcUtils.getConn()){
                 String query = "update sinhvien set HoSV ='"
-                        +hoSV.getText() 
+                        +hoSV.getText()
                         + "',TenSV ='"
                         + tenSV.getText()
                         + "',GioiTinh ='"
