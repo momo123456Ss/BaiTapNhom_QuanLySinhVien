@@ -77,27 +77,29 @@ public class SV_MHController implements Initializable {
                 }
                 String lowerCaseFilter = newValue.trim().toLowerCase();
                 if (!txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
-                    if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText()) && txtSearch.getText().trim().toLowerCase().equals(lowerCaseFilter)) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText().trim()) && Hoc.getMaMH().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
-                } else if (txtSearchSV.getText().trim().isEmpty()) {
-                    if (Hoc.getMaMH().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } 
+                else if (txtSearchSV.getText().trim().isEmpty() && !txtSearch.getText().trim().isEmpty()) {
+                    if (Hoc.getMaMH().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
-                } else if (txtSearch.getText().trim().isEmpty()) {
-                    if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText())) {
+                } else if (txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText().trim())) {
+                        return true;
+                    }
+                } else if (txtSearch.getText().trim().isEmpty() && txtSearchSV.getText().trim().isEmpty()) {
+                    return true;
+                }
+                else if (!txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText().trim()) && txtSearch.getText().trim().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
                 }
                 return false;
             });
         });
-        
-        SortedList<Hoc> sortData = new SortedList<>(fileteredData);
-
-        sortData.comparatorProperty().bind(tbSV_MH.comparatorProperty());
-
-        tbSV_MH.setItems(sortData);
 
         txtSearchSV.textProperty().addListener((observable, oldValue, newValue) -> {
             fileteredData.setPredicate(Hoc -> {
@@ -105,24 +107,28 @@ public class SV_MHController implements Initializable {
                     return true;
                 }
                 String lowerCaseFilter = newValue.trim().toLowerCase();
-
                 if (!txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
-                    if (Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter) && txtSearch.getText().trim().toLowerCase().equals(Hoc.getMaMH().toLowerCase())) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter) && txtSearch.getText().trim().toLowerCase().contains(Hoc.getMaMH().toLowerCase())) {
                         return true;
                     }
-                } else if (txtSearch.getText().trim().isEmpty()) {
-                    if (Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter)) {   
+                } else if (txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
+                    if (Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter)) {
                         return true;
                     }
-                } else if (txtSearchSV.getText().trim().isEmpty()) {
-                    if (txtSearch.getText().toLowerCase().trim().equals(Hoc.getMaMH().toLowerCase())) {
+                } else if (txtSearchSV.getText().trim().isEmpty() && !txtSearch.getText().trim().isEmpty()) {
+                    if (txtSearch.getText().toLowerCase().trim().contains(Hoc.getMaMH().toLowerCase())) {
                         return true;
                     }
-                }        
+                } else if (txtSearch.getText().trim().isEmpty() && txtSearchSV.getText().trim().isEmpty()) {
+                    return true;
+                }      
                 return false;
             });
         });
 
+        
+        
+        SortedList<Hoc> sortData = new SortedList<>(fileteredData);
         sortData.comparatorProperty().bind(tbSV_MH.comparatorProperty());
 
         tbSV_MH.setItems(sortData);
