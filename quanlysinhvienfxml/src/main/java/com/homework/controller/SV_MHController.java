@@ -72,9 +72,9 @@ public class SV_MHController implements Initializable {
         FilteredList<Hoc> fileteredData = new FilteredList<>(dsHoc, b -> true);
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             fileteredData.setPredicate(Hoc -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+//                if (newValue == null || newValue.isEmpty()) {
+//                    return true;
+//                }
                 String lowerCaseFilter = newValue.trim().toLowerCase();
                 if (!txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
                     if (Integer.toString(Hoc.getMaSV()).equals(txtSearchSV.getText().trim()) && Hoc.getMaMH().toLowerCase().contains(lowerCaseFilter)) {
@@ -103,9 +103,9 @@ public class SV_MHController implements Initializable {
 
         txtSearchSV.textProperty().addListener((observable, oldValue, newValue) -> {
             fileteredData.setPredicate(Hoc -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+//                if (newValue == null || newValue.isEmpty()) {
+//                    return true;
+//                }
                 String lowerCaseFilter = newValue.trim().toLowerCase();
                 if (!txtSearch.getText().trim().isEmpty() && !txtSearchSV.getText().trim().isEmpty()) {
                     if (Integer.toString(Hoc.getMaSV()).equals(lowerCaseFilter) && txtSearch.getText().trim().toLowerCase().contains(Hoc.getMaMH().toLowerCase())) {
