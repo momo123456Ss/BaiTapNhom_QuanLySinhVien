@@ -87,7 +87,7 @@ public class DanhsachSVController implements Initializable {
                 }
                 String lowerCaseFilter = newValue.trim().toLowerCase();
                 
-                if(String.valueOf(sinhVien.getMaSV()).trim().equals(lowerCaseFilter)){
+                if(String.valueOf(sinhVien.getMaSV()).trim().contains(lowerCaseFilter)){
                     return true;
                 }
                 else if(sinhVien.getMaLop().trim().toLowerCase().indexOf(lowerCaseFilter) != -1){

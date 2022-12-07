@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -51,6 +52,8 @@ public class ThemSinhVienController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    public static final DecimalFormat decimalFormat = new DecimalFormat("000");
+    public static final String CS = "2051010";
     ObservableList<sinhVien> sVList = FXCollections.observableArrayList();
     ObservableList<Lop> lopList = FXCollections.observableArrayList();
     @FXML
@@ -70,24 +73,23 @@ public class ThemSinhVienController implements Initializable {
     private Button btSua;
     @FXML
     private DatePicker datePick;
-    
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     int dem = 0;
-    
-    public static final LocalDate LOCAL_DATE (String dateString){
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate localDate = LocalDate.parse(dateString, formatter);
-    return localDate;
+
+    public static final LocalDate LOCAL_DATE(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
     }
-    
+
     public static LocalDate
-    getDateFromString(String string,
-                      DateTimeFormatter format)
-    {
+            getDateFromString(String string,
+                    DateTimeFormatter format) {
         // Converting the string to date
         // in the specified format
         LocalDate date = LocalDate.parse(string, format);
- 
+
         // Returning the converted date
         return date;
     }
@@ -95,7 +97,7 @@ public class ThemSinhVienController implements Initializable {
     private Button btClear;
     @FXML
     private Button btCheck;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -104,7 +106,7 @@ public class ThemSinhVienController implements Initializable {
         list.add("null");
         list.add("Nam");
         list.add("Nu");
-        
+
         try {
             quanLySinhVien qlSV = new quanLySinhVien();
             qlSV.docDanhSachSinhVien(sVList);
@@ -113,67 +115,38 @@ public class ThemSinhVienController implements Initializable {
         } catch (ParseException ex) {
             Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        for(sinhVien sv : this.sVList){
-                dem++;
-            }
-         maSV.setText(Integer.toString(dem+1));
-         hoSV.setText("");
-         tenSV.setText("");
-         queQuan.setText("null");
-         cbGioiTinh.setValue("null");
-         datePick.setValue(LocalDate.of(1970, 01, 01));
-         queQuan.setText("null");
-         maLop.setText("null");
-        
-//        FilteredList<sinhVien> fileteredData = new FilteredList<>(sVList, b -> true);
-//        maSV.textProperty().addListener((observable,oldValue,newValue) -> {
-//            fileteredData.setPredicate(sinhVien -> {
-//                    for (sinhVien sv : ThemSinhVienController.this.sVList) {
-//                        if(Integer.toString(sinhVien.getMaSV()).equals(maSV.getText())){
-//                            hoSV.setText(sinhVien.getHoSV());
-//                            tenSV.setText(sinhVien.getTenSV());
-//                            cbGioiTinh.setValue(sinhVien.getGioiTinh());
-//                            
-//                            datePick.setValue(getDateFromString(sinhVien.F.format(sinhVien.getNgaySinh()), formatter));
-//                            queQuan.setText(sinhVien.getQueQuan());
-//                            maLop.setText(sinhVien.getMaLop());
-//                            return true;
-//                        }
-//                        else if(maSV.getText().isEmpty()){
-//                            hoSV.setText("");
-//                            tenSV.setText("");
-//                            cbGioiTinh.setValue("null");
-//                            datePick.setValue(LocalDate.of(1970, 01, 01));
-//                            queQuan.setText("null");
-//                            maLop.setText("null");
-//                            return true;
-//                        }              
-//                    }
-//                    return false;
-//            });
-//        });
-    }    
-    
+
+        for (sinhVien sv : this.sVList) {
+            dem++;
+        }
+        maSV.setText(Integer.toString(dem + 1));
+        hoSV.setText("");
+        tenSV.setText("");
+        queQuan.setText("null");
+        cbGioiTinh.setValue("null");
+        datePick.setValue(LocalDate.of(1970, 01, 01));
+        queQuan.setText("null");
+        maLop.setText("null");
+    }
+
     @FXML
     public void btInsert(ActionEvent evt) throws IOException, SQLException {
         dem = 0;
-        sVList.clear();    
+        sVList.clear();
         quanLySinhVien qlSV = new quanLySinhVien();
         quanLyLop qlLop = new quanLyLop();
-            try {
-                qlLop.docDanhSachLop(lopList);
-                qlSV.docDanhSachSinhVien(sVList);
-            } catch (ParseException ex) {
-                Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-          
-            
-            for(sinhVien sv : this.sVList){
-                dem++;
-            }
-             maSV.setText(Integer.toString(dem+1));
-        if(hoSV.getText().isEmpty() || tenSV.getText().isEmpty()){
+        try {
+            qlLop.docDanhSachLop(lopList);
+            qlSV.docDanhSachSinhVien(sVList);
+        } catch (ParseException ex) {
+            Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (sinhVien sv : this.sVList) {
+            dem++;
+        }
+        maSV.setText(Integer.toString(dem + 1));
+        if (hoSV.getText().isEmpty() || tenSV.getText().isEmpty()) {
             Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
@@ -182,17 +155,16 @@ public class ThemSinhVienController implements Initializable {
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
             return;
-        }
-        else{
-            sVList.clear();    
-                try {
-                    qlSV.docDanhSachSinhVien(sVList);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        } else {
+            sVList.clear();
+            try {
+                qlSV.docDanhSachSinhVien(sVList);
+            } catch (ParseException ex) {
+                Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             boolean check = false;
-            for(sinhVien sv : this.sVList){
-                if(maSV.getText().equals(Integer.toString(sv.getMaSV()))){
+            for (sinhVien sv : this.sVList) {
+                if (maSV.getText().equals(Integer.toString(sv.getMaSV()))) {
                     Exception e = new Exception("An exception!!!!!!!");
                     StringWriter sw = new StringWriter();
                     e.printStackTrace(new PrintWriter(sw));
@@ -205,42 +177,40 @@ public class ThemSinhVienController implements Initializable {
 
             }
             boolean checkLop = false;
-            for(Lop lop : this.lopList){
-                if(maLop.getText().toLowerCase().equals(lop.getMaLop().toLowerCase())){
+            for (Lop lop : this.lopList) {
+                if (maLop.getText().toLowerCase().equals(lop.getMaLop().toLowerCase())) {
                     checkLop = true;
                 }
             }
-            if(checkLop == false){
+            if (checkLop == false) {
                 Exception e = new Exception("An exception!!!!!!!");
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("MaLop khong ton tai!");
-                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
-                    alert.showAndWait();
-                    return;
+                StringWriter sw = new StringWriter();
+                e.printStackTrace(new PrintWriter(sw));
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("MaLop khong ton tai!");
+                alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                alert.showAndWait();
+                return;
             }
             Statement stmt = null;
-            try (Connection conn = com.homework.services.JdbcUtils.getConn()){                     
-                    String sql = "INSERT INTO sinhvien (MaSV,HoSV,TenSV,GioiTinh,NgaySinh,QueQuan,MaLop) VALUES ('"
-                            + "2051010" + maSV.getText() + "','"
-                            +hoSV.getText().trim() + "','"
-                            +tenSV.getText().trim() + "','"
-                            +cbGioiTinh.getValue() + "','"
-                            +datePick.getValue() + "','"
-                            +queQuan.getText().trim() + "','"
-                            +maLop.getText().trim()+ "')";
-                    Exception e = new Exception("An exception!!!!!!!");
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText("OK!");
-                    alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
-                    alert.showAndWait();
-                    stmt = (Statement) conn.createStatement();
-                    stmt.executeUpdate(sql);
-                    
-                
+            try ( Connection conn = com.homework.services.JdbcUtils.getConn()) {
+                String sql = "INSERT INTO sinhvien (MaSV,HoSV,TenSV,GioiTinh,NgaySinh,QueQuan,MaLop) VALUES ('"
+                        + CS + decimalFormat.format(Integer.parseInt(maSV.getText())) + "','"
+                        + hoSV.getText().trim() + "','"
+                        + tenSV.getText().trim() + "','"
+                        + cbGioiTinh.getValue() + "','"
+                        + datePick.getValue() + "','"
+                        + queQuan.getText().trim() + "','"
+                        + maLop.getText().trim() + "')";
+                Exception e = new Exception("An exception!!!!!!!");
+                StringWriter sw = new StringWriter();
+                e.printStackTrace(new PrintWriter(sw));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("OK!");
+                alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+                alert.showAndWait();
+                stmt = (Statement) conn.createStatement();
+                stmt.executeUpdate(sql);
 
             }
         }
@@ -252,39 +222,38 @@ public class ThemSinhVienController implements Initializable {
             Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
-     public void btClear(ActionEvent evt){
+    public void btClear(ActionEvent evt) {
         dem = 0;
-        sVList.clear();    
+        sVList.clear();
         quanLySinhVien qlSV = new quanLySinhVien();
         quanLyLop qlLop = new quanLyLop();
         try {
-             qlSV.docDanhSachSinhVien(sVList);
-             qlLop.docDanhSachLop(lopList);
-             } catch (SQLException ex) {
-                 Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (ParseException ex) {
-                 Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
-             }
-          
-            
-            for(sinhVien sv : this.sVList){
-                dem++;
-            }
-             maSV.setText(Integer.toString(dem+1));
-         hoSV.setText("");
-         tenSV.setText("");
-         queQuan.setText("null");
-         cbGioiTinh.setValue("null");
-         datePick.setValue(LocalDate.of(1970, 01, 01));
-         queQuan.setText("null");
-         maLop.setText("null");
-     }
-     
+            qlSV.docDanhSachSinhVien(sVList);
+            qlLop.docDanhSachLop(lopList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (sinhVien sv : this.sVList) {
+            dem++;
+        }
+        maSV.setText(Integer.toString(dem + 1));
+        hoSV.setText("");
+        tenSV.setText("");
+        queQuan.setText("null");
+        cbGioiTinh.setValue("null");
+        datePick.setValue(LocalDate.of(1970, 01, 01));
+        queQuan.setText("null");
+        maLop.setText("null");
+    }
+
     @FXML
-    public void btSua(ActionEvent evt) throws SQLException{
-         if(hoSV.getText().isEmpty() || tenSV.getText().isEmpty()){
+    public void btSua(ActionEvent evt) throws SQLException {
+        if (hoSV.getText().isEmpty() || tenSV.getText().isEmpty()) {
             Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
@@ -292,24 +261,24 @@ public class ThemSinhVienController implements Initializable {
             alert.setHeaderText("Nhap thong tin!");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
-             return;
+            return;
         }
-        sVList.clear();    
-             try {
-                 quanLySinhVien qlSV = new quanLySinhVien();
-                 qlSV.docDanhSachSinhVien(sVList);
-             } catch (SQLException ex) {
-                 Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (ParseException ex) {
-                 Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
-             }
-        boolean checkSV = false; 
-        for(sinhVien sv : this.sVList){
-            if(maSV.getText().equals(Integer.toString(sv.getMaSV()))){
-                    checkSV = true;
+        sVList.clear();
+        try {
+            quanLySinhVien qlSV = new quanLySinhVien();
+            qlSV.docDanhSachSinhVien(sVList);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ThemSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        boolean checkSV = false;
+        for (sinhVien sv : this.sVList) {
+            if (maSV.getText().equals(Integer.toString(sv.getMaSV()))) {
+                checkSV = true;
             }
         }
-        if(checkSV == false){
+        if (checkSV == false) {
             Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
@@ -317,43 +286,43 @@ public class ThemSinhVienController implements Initializable {
             alert.setHeaderText("MaSV ko ton tai!");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
-                  return;
+            return;
         }
-        
-        try (Connection conn = com.homework.services.JdbcUtils.getConn()){
-                String query = "update sinhvien set HoSV ='"
-                        +hoSV.getText()
-                        + "',TenSV ='"
-                        + tenSV.getText()
-                        + "',GioiTinh ='"
-                        + cbGioiTinh.getValue()
-                        + "',NgaySinh ='"
-                        + datePick.getValue()
-                        + "',QueQuan ='"
-                        + queQuan.getText()
-                        + "',MaLop ='"
-                        + maLop.getText()
-                        + "' where MaSV ='" + maSV.getText() +"'";
-                Statement stmt = null;
-                Exception e = new Exception("An exception!!!!!!!");
-                StringWriter sw = new StringWriter();
-                e.printStackTrace(new PrintWriter(sw));
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(query);
-                alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
-                alert.showAndWait();
-                stmt = (Statement) conn.createStatement();
-                stmt.execute(query);
-                
-        } 
-     }
-    
+
+        try ( Connection conn = com.homework.services.JdbcUtils.getConn()) {
+            String query = "update sinhvien set HoSV ='"
+                    + hoSV.getText()
+                    + "',TenSV ='"
+                    + tenSV.getText()
+                    + "',GioiTinh ='"
+                    + cbGioiTinh.getValue()
+                    + "',NgaySinh ='"
+                    + datePick.getValue()
+                    + "',QueQuan ='"
+                    + queQuan.getText()
+                    + "',MaLop ='"
+                    + maLop.getText()
+                    + "' where MaSV ='" + maSV.getText() + "'";
+            Statement stmt = null;
+            Exception e = new Exception("An exception!!!!!!!");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(query);
+            alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
+            alert.showAndWait();
+            stmt = (Statement) conn.createStatement();
+            stmt.execute(query);
+
+        }
+    }
+
     @FXML
-    public void btCheck(ActionEvent evt){
+    public void btCheck(ActionEvent evt) {
         boolean checkTonTai = false;
-        dem = 0 ;
+        dem = 0;
         for (sinhVien sv : ThemSinhVienController.this.sVList) {
-            if(Integer.toString(sv.getMaSV()).equals(maSV.getText())){
+            if (Integer.toString(sv.getMaSV()).equals(maSV.getText())) {
                 hoSV.setText(sv.getHoSV());
                 tenSV.setText(sv.getTenSV());
                 cbGioiTinh.setValue(sv.getGioiTinh());
@@ -361,9 +330,9 @@ public class ThemSinhVienController implements Initializable {
                 queQuan.setText(sv.getQueQuan());
                 maLop.setText(sv.getMaLop());
                 checkTonTai = true;
-            }    
+            }
         }
-        if(checkTonTai == false){
+        if (checkTonTai == false) {
             Exception e = new Exception("An exception!!!!!!!");
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
@@ -371,10 +340,10 @@ public class ThemSinhVienController implements Initializable {
             alert.setHeaderText("Khong co trong danh sach!");
             alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(sw.toString())));
             alert.showAndWait();
-            for(sinhVien sv : this.sVList){
+            for (sinhVien sv : this.sVList) {
                 dem++;
             }
-             maSV.setText(Integer.toString(dem+1));
+            maSV.setText(Integer.toString(dem + 1));
             hoSV.setText("");
             tenSV.setText("");
             queQuan.setText("null");
@@ -385,5 +354,5 @@ public class ThemSinhVienController implements Initializable {
         }
 
     }
-     
+
 }

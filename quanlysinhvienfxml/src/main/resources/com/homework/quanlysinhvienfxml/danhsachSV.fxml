@@ -20,8 +20,8 @@
             <TableColumn fx:id="maLop" prefWidth="84.0" text="MaLoP" />
         </columns>
       </TableView>
-      <TextField fx:id="txtSearch" layoutX="23.0" layoutY="35.0" prefHeight="25.0" prefWidth="264.0" />
-      <Button fx:id="btReload" layoutX="300.0" layoutY="35.0" mnemonicParsing="false" onAction="#btReload" text="RELOAD" />
-      <Label layoutX="23.0" layoutY="14.0" text="Fllter" />
+      <TextField fx:id="txtSearch" layoutX="11.0" layoutY="60.0" prefHeight="25.0" prefWidth="86.0" />
+      <Button fx:id="btReload" layoutX="115.0" layoutY="60.0" mnemonicParsing="false" onAction="#btReload" text="RELOAD" />
+      <Label layoutX="14.0" layoutY="39.0" text="Fllter" />
    </children>
 </AnchorPane>
